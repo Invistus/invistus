@@ -8,15 +8,24 @@ The project is AWS-hosted project scales seamlessly to meet scalable, secure and
 
 ```plan
 project/
-├── ui/  # Folder containing the frontend files
+├── android/ # Folder containing the Android implementation
+│   └── src/   
+│
+├── ios/  # Folder containing the IOS implementation
+│   └── src/   
+│
+├── web/  # Folder containing the frontend web artifacts
 │   ├── src/             
 │   │   ├── components/
 │   │   ├── layout/
 │   │   ├── pages/
+│   │   ├── language/
+│   │   ├── service/
 │   │   └── App.tsx
 │   ├── public/
 │   ├── package.json
 │   └── tsconfig.json
+│
 └── service/ # Folder containing the backend files
     ├── src/           
     │   ├── controllers/ # Controllers to handle business logic
