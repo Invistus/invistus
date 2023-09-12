@@ -1,0 +1,263 @@
+
+/* Bootstrap override */
+:root {
+
+  /* Colors */
+  --inv-light-color: #d8d8d8;
+  --inv-dark-color: #1e55a5;
+  --inv-secondary-color: #ed5267;
+  --inv-support-color: #bcbcbc;
+
+  /* Font */
+  --inv-font-size: .9rem;
+  --inv-font-color: var(--bs-dark);
+
+  --bs-dark-rgb: var(--inv-dark-color);
+
+  --inv-shadow: 0 10px 15px 0 rgba(0, 0, 0, 0.1), 0 10px 20px 0 rgba(0, 0, 0, 0.1);
+  --inv-inner-shadow: inset -10px -10px 25px 10px rgba(0, 0, 0, 0.1);
+
+}
+
+body {
+  margin: 0;
+  font-size: var(--inv-font-size);
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;  
+  color: var(--inv-font-color);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  background-image: url('../public/images/backgrounds/background.svg');
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: top;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/* Headers */
+h1 {
+  font-size: 2.5rem;
+  font-weight: 400;
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: 400;
+}
+
+h3 {
+  font-size: 1.5rem;
+  font-weight: 400;
+}
+
+h1, h2, h3 {
+	margin-bottom:1.2rem;
+  color: #1e55a5;
+  opacity: 0.45;
+  letter-spacing: -0.1rem;
+}
+
+/* List */
+ul, li {
+  list-style-type: none;
+  padding: 0 .5rem;
+}
+
+/* Layouyt */
+.right {
+  float: right;
+}
+
+.layout-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.layout-body {
+  display: flex;
+  height: calc(100vh - 4rem); /* subtracting header height */
+}
+
+header {
+  height: 4rem;
+}
+
+/* Menu */
+.menu-open, .menu-closed {
+  overflow-y: auto;
+  width: 250px;
+  padding: 1rem 1rem;
+  margin: 1rem .5rem;
+  background-color: var(--bs-dark-rgb);
+  border-radius: var(--bs-border-radius);
+  color: var(--bs-light);
+  box-shadow: var(--inv-inner-shadow);
+}
+
+.menu-closed {
+  width: 0;
+}
+
+.menu-items {
+  opacity: .8;
+  font-weight: bold;
+  font-size: small;
+}
+
+.menu-items ul a {
+  text-decoration: none;
+  color: var(--inv-secondary-color) !important;
+  font-size: medium;
+}
+
+.menu-items ul a:hover, .menu-items ul a:hover {
+    text-decoration: underline;
+    color: var(--inv-secondary-color) !important;
+    opacity: 1;
+}
+
+.content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0 1rem 2rem;
+  margin: 1rem 0 0 0;
+}
+
+div .logo img {
+  padding: 0px 5px;
+  width: 150px;
+  cursor: pointer;
+  opacity: .8;
+}
+
+div .logo img:hover {
+  opacity: 1;
+}
+
+
+
+/* Remove default browser outline */
+*:focus {
+  outline: none;
+}
+
+
+/* Buttons */
+button {
+  margin-top: .6em;
+	padding: .6rem;
+	font-weight: bold;
+  min-width: 200px;
+  border: none;
+
+  border-radius: var(--bs-border-radius);
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: var(--inv-secondary-color);
+  opacity: 0.9;
+}
+
+.btn-primary:hover {
+  opacity: 1;
+}
+
+.btn-primary:active {
+  opacity: 1;
+  background-color: var(--inv-light-color);
+}
+
+.btn:not(:disabled):not(.disabled) {
+  cursor: pointer;
+}
+
+.bg-dark {
+  background-color: var(--bs-dark-rgb) !important;
+}
+
+
+
+/* Panel */
+div.panel-shadow {
+  box-shadow: var(--inv-shadow);
+}
+
+div.panel-container {
+  padding: 1rem 2rem;
+  background-color: #fbfbfb;
+  /* border: 1px solid var(--bs-gray-300); */
+  border-radius: var(--bs-border-radius);
+  width: fit-content;
+  /* min-width: 600px; */
+  width: auto;
+}
+
+
+/*  Pages */
+div.page-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(auto, 1fr);
+  grid-column-gap: 0px;
+  grid-row-gap: 20px;
+  align-items: start;
+}
+
+
+/* Form */
+form * {
+  border-radius: var(--bs-border-radius);
+}
+form {
+  text-align: left;
+}
+
+form .form-group {
+  margin-bottom: .5rem;
+}
+
+form .form-group-btn {
+  justify-content: right;
+  display: flex;
+  margin: 2rem 0 1rem;
+}
+
+form .form-control {
+  padding: 0.2rem 0.5rem;
+  font-weight: 300;
+}
+
+form .form-control:focus {
+  box-shadow: none;
+}
+
+form label {
+  font-size: var(--inv-font-size);
+  /* Overlay input */
+  margin-bottom: -5px;
+  vertical-align: bottom;
+}
+
+input {
+  color: var(--bs-);
+}
+
+input.number {
+  text-align: right;
+}
+
+select {
+  color: var(--bs-white);
+  border: 1px solid var(--inv-support-color);
+  background-color: var(--inv-support-color);
+}
+
+.input-side-button {
+  min-width: 80px;
+}
