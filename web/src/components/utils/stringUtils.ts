@@ -99,7 +99,8 @@ export const parseCurrency = (currencyStr: string, locale: string= DEFAULT_LOCAL
  * @returns {number | null} - The parsed percentage as a number, or null if the parsing fails.
  */
 export const parsePercentage = (str: string): number | null => {
-      return parseNumber(str.replace('%', ''));
+      const percent = parseNumber(str?.replace('%', ''));
+      return percent ? percent / 100 : null;
     };
   
 /**
@@ -109,6 +110,8 @@ export const parsePercentage = (str: string): number | null => {
  * @returns {number | null} - The parsed number, or null if the parsing fails.
  */
 export const parseNumber = (str: string, locale: string = DEFAULT_LOCALE): number | null => {
+    if (!str) return null;
+
     // Create a formatter for the locale
     const format = new Intl.NumberFormat(locale);
     

@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent } from 'react';
+import React, { ChangeEvent } from 'react';
 import InputProps from './InputProps';
 import { parseNumber, formatNumber } from 'components/utils/stringUtils';
 

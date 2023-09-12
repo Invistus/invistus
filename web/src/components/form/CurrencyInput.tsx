@@ -26,7 +26,7 @@ const CurrencyInput: React.FC<InputProps> = ({ onChange, value, ...props }) => {
         return formattedValue;
     };
 
-    return <input type="text" value={value} className="form-control number" onChange={handleChange} {...props} placeholder="R$ 0,00" />;
+    return <input type="text" value={value} className="form-control number" onChange={handleChange} placeholder="R$ 0,00" {...props} />;
 };
 
 export default CurrencyInput;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import CurrencyInput from 'components/form/CurrencyInput';
 import PercentageInput from 'components/form/PercentageInput';
 import NumberInput from 'components/form/NumberInput';
@@ -44,12 +44,12 @@ const CompoundInterestForm: React.FC<CompoundInterestFormProps> = ({ onCalculate
         const values: CompoundInterestFormData = {
             ...formData,
             principal: parseCurrency(formData.principal)  ?? 0.0,
-            contribution: parseCurrency(formData.contribution)  ?? 0.0,
+            contribution: parseCurrency(formData.contribution )  ?? 0.0,
             rate: parsePercentage(formData.rate) ?? 0.0,
             calculationPeriod: parseInt(formData.calculationPeriod) ?? 0.0,
         };
         
-        const { principal, contribution, rate } = values;
+        const { principal, contribution, rate, calculationPeriod } = values;
 
         if (principal === 0.0 && contribution === 0.0) {
           errors.principal = {
@@ -62,6 +62,13 @@ const CompoundInterestForm: React.FC<CompoundInterestFormProps> = ({ onCalculate
             errors.rate = {
                 type: "manual",
                 message: t('errors.rateGreaterThanZero')
+              };    
+        }   
+
+        if (calculationPeriod <= 0) {
+            errors.rate = {
+                type: "manual",
+                message: t('errors.calculationPeriodGreaterThanZero')
               };    
         }   
       
@@ -77,7 +84,9 @@ const CompoundInterestForm: React.FC<CompoundInterestFormProps> = ({ onCalculate
     
     return (
         <div className="CompoundInterestForm">
-            {errors.principal && <div className="errorValidation alert alert-warning">{errors.principal.message}</div>}
+            {isNotEmpty(errors) && 
+                Object.getOwnPropertyNames(errors).map(prop => 
+                    <div className="errorValidation alert alert-warning">{errors[prop]?.message?.toString()}</div>)}
             <form onSubmit={handleSubmit(calculateInterest)}>
                 <div className="form-group row">
                     <div className="col-6">
@@ -88,7 +97,9 @@ const CompoundInterestForm: React.FC<CompoundInterestFormProps> = ({ onCalculate
                             name="principal"
                             control={control}
                             render={({ field }) => (
-                                <CurrencyInput value={field.value} onChange={field.onChange} />
+                                <CurrencyInput 
+                                    value={field.value} 
+                                    onChange={field.onChange} />
                             )}
                         />
                     </div>
@@ -103,7 +114,9 @@ const CompoundInterestForm: React.FC<CompoundInterestFormProps> = ({ onCalculate
                                 name="contribution"
                                 control={control}
                                 render={({ field }) => (
-                                    <CurrencyInput value={field.value} onChange={field.onChange} />
+                                    <CurrencyInput 
+                                        value={field.value} 
+                                        onChange={field.onChange} />
                                 )}
                             />
                             <select {...register("contributionPeriod")} className="input-side-button">
@@ -123,7 +136,9 @@ const CompoundInterestForm: React.FC<CompoundInterestFormProps> = ({ onCalculate
                                 name="rate"
                                 control={control}
                                 render={({ field }) => (
-                                    <PercentageInput value={field.value} onChange={field.onChange} />
+                                    <PercentageInput 
+                                        value={field.value} 
+                                        onChange={field.onChange} />
                                 )}
                             />                           
                             <select {...register("ratePeriod")} className="input-side-button">
@@ -142,6 +157,7 @@ const CompoundInterestForm: React.FC<CompoundInterestFormProps> = ({ onCalculate
                             <Controller
                                 name="calculationPeriod"
                                 control={control}
+                                defaultValue="0"
                                 render={({ field }) => (
                                     <NumberInput value={field.value} onChange={field.onChange} />
                                 )}
