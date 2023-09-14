@@ -28,7 +28,7 @@ const CompoundInterestPage = () => {
   };
 
   return (
-    <Page title="Juros Compostos">
+    <Page>
         <Panel title={t('compoundInterest.title')}>
           <CompoundInterestForm onCalculate={handleCalculation}/>
         </Panel>

@@ -4,7 +4,7 @@
 
   /* Colors */
   --inv-light-color: #d8d8d8;
-  --inv-dark-color: #1e55a5;
+  --inv-dark-color: #000C66; /* #1e55a5; */
   --inv-secondary-color: #ed5267;
   --inv-support-color: #bcbcbc;
 
@@ -57,7 +57,7 @@ h3 {
 
 h1, h2, h3 {
 	margin-bottom:1.2rem;
-  color: #1e55a5;
+  color: var(--inv-dark-color);
   opacity: 0.45;
   letter-spacing: -0.1rem;
 }

@@ -13,7 +13,8 @@ const LeftMenu = () => {
                 <ul>
                     <li>Calculadora Financeira
                         <ul>
-                            <li><Link to="/calculadora/juros_compostos">Juros Compostos</Link></li>
+                            <li><Link to="/calculators/compound_interest">Juros Compostos</Link></li>
+                            <li><Link to="/calculators/cdb_vs_lci_lca">CDB x LCA/LCI</Link></li>
                         </ul>
                     </li>
                 </ul>

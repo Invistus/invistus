@@ -4,6 +4,7 @@ import { LanguageProvider } from 'language/LanguageContext';
 import MainLayout from 'layout/MainLayout';
 import HomePage from 'pages/home/HomePage';
 import CompoundInterestPage from 'pages/calculators/CompoundInterestPage';
+import FixedIncomeComparisonPage from 'pages/calculators/FixedIncomeComparisonPage';
 import './App.css';
 
 // const reload = () => window.location.reload();
@@ -16,9 +17,9 @@ function App() {
           <MainLayout>
             <Routes>
               <Route path="/" element={<HomePage />} />
-              <Route path="/calculadora/juros_compostos" element={<CompoundInterestPage />} />
-              <Route path="/calculadora/sac_vs_price" element={<CompoundInterestPage />} />
-              <Route path="/calculadora/cdb_vs_lc" element={<CompoundInterestPage />} />
+              <Route path="/calculators/compound_interest" element={<CompoundInterestPage />} />
+              <Route path="/calculators/sac_vs_price" element={<CompoundInterestPage />} />
+              <Route path="/calculators/cdb_vs_lci_lca" element={<FixedIncomeComparisonPage />} />
             </Routes>
           </MainLayout>
         </Router>
