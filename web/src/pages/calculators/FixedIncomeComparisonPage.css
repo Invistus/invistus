@@ -1,0 +1,42 @@
+.result-compound-interest-panel {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr;
+  grid-column-gap: 20px;
+  grid-row-gap: 20px;    
+  justify-items: center;
+  align-items: center;
+}
+
+.result-compound-interest-panel>div {
+  width: fit-content;
+  min-width: 300px;
+  padding: 1rem 1rem;
+  margin: 0 0 1rem;
+  border-radius: var(--bs-border-radius);
+  box-shadow: var(--inv-inner-shadow);
+  text-align: center;
+}
+
+.result-compound-interest-panel>div.principal {
+  background-color: #2089C9;
+}
+
+.result-compound-interest-panel>div.interest {
+  background-color: #1FBF78;
+}
+
+.result-compound-interest-panel>div.total-amount {
+  background-color: var(--bs-gray-600);
+}
+
+
+.result-compound-interest-panel p {
+  margin-bottom: 0;
+  font-weight: bold;
+  color: var(--bs-light);
+}
+
+.result-compound-interest-panel .value {
+  font-size: x-large;
+}

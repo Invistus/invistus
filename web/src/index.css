@@ -148,13 +148,12 @@ div .logo img:hover {
 
 
 /* Buttons */
-button {
+button.btn {
   margin-top: .6em;
 	padding: .6rem;
 	font-weight: bold;
   min-width: 200px;
   border: none;
-
   border-radius: var(--bs-border-radius);
 }
 

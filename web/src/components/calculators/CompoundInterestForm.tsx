@@ -1,5 +1,5 @@
 import React from 'react';
-import CurrencyInput from 'components/form/CurrencyInput';
+import CurrencyInput from 'components/form/inputs/CurrencyInput';
 import PercentageInput from 'components/form/PercentageInput';
 import NumberInput from 'components/form/NumberInput';
 import { useForm, Resolver, FieldValues, FieldErrors, Controller, SubmitHandler } from 'react-hook-form';

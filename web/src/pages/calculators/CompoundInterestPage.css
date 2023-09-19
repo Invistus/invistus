@@ -1,4 +1,4 @@
-.result-compound-interest-panel {
+.result-fixed-income-comparison-panel {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: 1fr;
@@ -8,35 +8,36 @@
     align-items: center;
 }
 
-.result-compound-interest-panel>div {
+.result-fixed-income-comparison-panel>div {
     width: fit-content;
     min-width: 300px;
+    height: 100%;
     padding: 1rem 1rem;
-    margin: 0 0 1rem;
     border-radius: var(--bs-border-radius);
     box-shadow: var(--inv-inner-shadow);
     text-align: center;
+    vertical-align: middle;
 }
 
-.result-compound-interest-panel>div.principal {
+.result-fixed-income-comparison-panel>div.principal {
     background-color: #2089C9;
 }
 
-.result-compound-interest-panel>div.interest {
+.result-fixed-income-comparison-panel>div.interest {
     background-color: #1FBF78;
 }
 
-.result-compound-interest-panel>div.total-amount {
+.result-fixed-income-comparison-panel>div.total-amount {
     background-color: var(--bs-gray-600);
 }
 
 
-.result-compound-interest-panel p {
+.result-fixed-income-comparison-panel p {
     margin-bottom: 0;
     font-weight: bold;
     color: var(--bs-light);
 }
 
-.result-compound-interest-panel .value {
+.result-fixed-income-comparison-panel .value {
     font-size: x-large;
 }
