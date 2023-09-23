@@ -14,7 +14,7 @@ const LeftMenu = () => {
                     <li>Calculadora Financeira
                         <ul>
                             <li><Link to="/calculators/compound_interest">Juros Compostos</Link></li>
-                            <li><Link to="/calculators/cdb_vs_lci_lca">CDB x LCA/LCI</Link></li>
+                            <li><Link to="/calculators/fixed_income_benchmark">CDB x LCA/LCI</Link></li>
                         </ul>
                     </li>
                 </ul>

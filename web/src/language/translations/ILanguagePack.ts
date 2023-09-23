@@ -1,12 +1,28 @@
 export interface ILanguagePack {
-    errors: {
-      fieldRequired: string;
-      rateGreaterThanZero: string;
-      calculationPeriodGreaterThanZero: string;
-      eitherPrincipalOrContribution: string;      
+    common: {
+      result: string,
+      errors: {
+        fieldRequired: string;
+        rateGreaterThanZero: string;
+      };
     };
-
     compoundInterest: {
-      title: string
-    }
+      label: string,
+      principal: string,
+      contribution: string,
+      rate: string,
+      period: string,
+      submit: string,
+      errors: {
+        calculationPeriodGreaterThanZero: string;
+        eitherPrincipalOrContribution: string;
+      };  
+    };
+    fixedIncomeBenchmarck: {
+      label: string,
+      errors: {
+        investmentCategoryIndexPostFixedGreaterThanZero: string
+        investmentCategoryIndexIPCAGreaterThanZero: string
+      }
+    };
   }

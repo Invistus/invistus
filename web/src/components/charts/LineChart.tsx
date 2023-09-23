@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { formatNumber } from 'components/utils/stringUtils';
+import { formatNumber } from 'utils/stringUtils';
 import { 
   DEFAULT_PATH_COLOR, 
   DEFAULT_AREA_COLOR,

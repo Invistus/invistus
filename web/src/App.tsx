@@ -2,10 +2,10 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { LanguageProvider } from 'language/LanguageContext';
 import MainLayout from 'layout/MainLayout';
-import HomePage from 'pages/home/HomePage';
-import CompoundInterestPage from 'pages/calculators/CompoundInterestPage';
-import FixedIncomeComparisonPage from 'pages/calculators/FixedIncomeComparisonPage';
 import './App.css';
+import HomePage from 'features/Home/HomePage';
+import { CompoundInterestPage } from 'features/CompoundInterest';
+import { FixedIncomeBenchmarckPage } from 'features/FixedIncomeBenchmarck';
 
 // const reload = () => window.location.reload();
 
@@ -18,8 +18,8 @@ function App() {
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/calculators/compound_interest" element={<CompoundInterestPage />} />
-              <Route path="/calculators/sac_vs_price" element={<CompoundInterestPage />} />
-              <Route path="/calculators/cdb_vs_lci_lca" element={<FixedIncomeComparisonPage />} />
+              <Route path="/calculators/fixed_income_benchmark" element={<FixedIncomeBenchmarckPage />} />
+              <Route path="/calculators/rent_or_buy" element={<CompoundInterestPage />} />
             </Routes>
           </MainLayout>
         </Router>
