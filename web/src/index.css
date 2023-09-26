@@ -7,13 +7,15 @@
   --inv-dark-color: #000C66; /* #1e55a5; */
   --inv-secondary-color: #ed5267;
   --inv-support-color: #bcbcbc;
-
+  --bs-dark-rgb: var(--inv-dark-color);
+  --bs-light-gray: #f2f2f2;
+  --bs-light-green: #d7ffad;
+  
   /* Font */
   --inv-font-size: .9rem;
   --inv-font-color: var(--bs-dark);
 
-  --bs-dark-rgb: var(--inv-dark-color);
-  --bs-light-gray: #f2f2f2;
+
 
   --inv-shadow: 0 10px 15px 0 rgba(0, 0, 0, 0.1), 0 10px 20px 0 rgba(0, 0, 0, 0.1);
   --inv-inner-shadow: inset -10px -10px 25px 10px rgba(0, 0, 0, 0.1);
@@ -325,4 +327,31 @@ div.errorValidation li::before {
   content: '►';          /* The custom character */
   position: absolute;
   left: -1em;          /* Adjust this value as needed to position your custom bullet */
+}
+
+
+/* Tutorials */
+div.more_about {
+  margin-top: 2rem;
+  font-size: medium;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--bs-gray);
+}
+
+div.tutorial-container h1, h2, h3 {
+  margin-top: 2rem;
+}
+
+div.tutorial-container b {
+  font-weight: 600;
+  color: var(--bs-gray);
+  background-color: var(--bs-light-gray);
+}
+
+div.tutorial-container u {
+  font-weight: 600;
+  color: var(--bs-gray);
+  text-decoration: underline;
+  background-color: var(--bs-light-gray);
 }

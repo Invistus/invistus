@@ -3,7 +3,7 @@ import { useForm, FieldValues, FieldErrors } from 'react-hook-form';
 import { parsePercentage, parseNumber } from 'utils/stringUtils';
 import PercentageField from 'components/forms/fields/PercentageField';
 import NumberField from 'components/forms/fields/NumberField';
-import { InvestmentType, InvestmentCategory, IFixedIncomeBenchmarck } from 'features/FixedIncomeBenchmarck/IFixedIncomeBenchmarck';
+import { InvestmentType, InvestmentCategory, IFixedIncomeBenchmark } from 'features/FixedIncomeBenchmark/FixedIncomeBenchmark';
 import "react-datepicker/dist/react-datepicker.css";
 import DateField from 'components/forms/fields/DateField';
 import RadioGroupField from 'components/forms/fields/RadioGroupField';
@@ -15,7 +15,7 @@ import useTranslation from 'language/useTranslation';
 import { getInputDefaults } from 'utils/formUtils';
 
 
-interface FixedIncomeBenchmarckInputValues extends FieldValues {
+interface FixedIncomeBenchmarkInputValues extends FieldValues {
   investmentType: InvestmentType;
   investmentCategory: InvestmentCategory;
   investmentCategoryIndexPostFixed: string,
@@ -26,9 +26,9 @@ interface FixedIncomeBenchmarckInputValues extends FieldValues {
 };
 
 const { number, percentage } = getInputDefaults();
-const defaultFixedIncomeBenchmarckInputValues: FixedIncomeBenchmarckInputValues =  {
+const defaultFixedIncomeBenchmarkInputValues: FixedIncomeBenchmarkInputValues =  {
   investmentType: 'CDB',
-  investmentCategory: 'pre-fixed',
+  investmentCategory: 'pre_fixed',
   investmentCategoryIndexPostFixed: percentage,
   investmentCategoryIndexIPCA: percentage,
   durationDays: number,
@@ -36,15 +36,15 @@ const defaultFixedIncomeBenchmarckInputValues: FixedIncomeBenchmarckInputValues 
   dueDate: new Date()
 }
 
-const FixedIncomeBenchmarckForm: React.FC<{ onSubmit: (data: IFixedIncomeBenchmarck) => void }> = ({ onSubmit }) => {
+const FixedIncomeBenchmarkForm: React.FC<{ onSubmit: (data: IFixedIncomeBenchmark) => void }> = ({ onSubmit }) => {
 
   const { t } = useTranslation();
 
-  const { control, handleSubmit, setValue, formState: { errors } } = useForm<FixedIncomeBenchmarckInputValues, any, IFixedIncomeBenchmarck>({
-    defaultValues: defaultFixedIncomeBenchmarckInputValues,
-    resolver: async (inputValues: FixedIncomeBenchmarckInputValues) => {
+  const { control, handleSubmit, setValue, formState: { errors } } = useForm<FixedIncomeBenchmarkInputValues, any, IFixedIncomeBenchmark>({
+    defaultValues: defaultFixedIncomeBenchmarkInputValues,
+    resolver: async (inputValues: FixedIncomeBenchmarkInputValues) => {
 
-      const formData: IFixedIncomeBenchmarck = {
+      const formData: IFixedIncomeBenchmark = {
         investmentType: inputValues.investmentType,
         investmentCategory: inputValues.investmentCategory,
         investmentCategoryIndexPostFixed: parsePercentage(inputValues.investmentCategoryIndexPostFixed) || 0,
@@ -54,19 +54,33 @@ const FixedIncomeBenchmarckForm: React.FC<{ onSubmit: (data: IFixedIncomeBenchma
         dueDate: inputValues.dueDate,
       };
 
-      const errors: FieldErrors<FixedIncomeBenchmarckInputValues> = {};
+      const errors: FieldErrors<FixedIncomeBenchmarkInputValues> = {};
       
       if (formData.investmentCategoryIndexPostFixed <= 0) {
         errors.investmentCategoryIndexPostFixed = {
             type: "manual",
-            message: t('fixedIncomeBenchmarck.errors.investmentCategoryIndexPostFixedGreaterThanZero')
+            message: t('fixedIncomeBenchmark.errors.investmentCategoryIndexPostFixedGreaterThanZero')
           };    
       }   
 
       if (formData.investmentCategoryIndexIPCA <= 0) {
         errors.investmentCategoryIndexIPCA = {
             type: "manual",
-            message: t('fixedIncomeBenchmarck.errors.investmentCategoryIndexIPCAGreaterThanZero')
+            message: t('fixedIncomeBenchmark.errors.investmentCategoryIndexIPCAGreaterThanZero')
+          };    
+      }  
+
+      if (formData.grossReturnPercentage <= 0) {
+        errors.grossReturnPercentage = {
+            type: "manual",
+            message: t('fixedIncomeBenchmark.errors.grossReturnPercentageGreaterThanZero')
+          };    
+      }  
+
+      if (formData.durationDays <= 0) {
+        errors.durationDays = {
+            type: "manual",
+            message: t('fixedIncomeBenchmark.errors.durationDaysGreaterThanZero')
           };    
       }  
 
@@ -93,53 +107,53 @@ const FixedIncomeBenchmarckForm: React.FC<{ onSubmit: (data: IFixedIncomeBenchma
     <Form onSubmit={handleSubmit(onSubmit)} errors={errors}>
      
       <RadioGroupField
-          label="Investment Type"
+          label={t('fixedIncomeBenchmark.investmentType')}
           name="investmentType"
           control={control}
           options={[
-            { label: "CDB", value: "CDB" },
-            { label: "LCI/LCA", value: "LCI/LCA" }
+            { label: t('fixedIncomeBenchmark.cdb'), value: 'CDB' },
+            { label: t('fixedIncomeBenchmark.lca_lci'), value: 'LCA/LCI' }
           ]}>
       </RadioGroupField>
 
       <RadioGroupField
-          label="Investment Category"
+          label={t('fixedIncomeBenchmark.investmentCategory')}
           name="investmentCategory"
           control={control}
           options={[
-            { label: "Pré-fixado", value: "pre-fixed" },
-            { label: "Pós-fixado (CDI)", value: "pós-fixed" },
-            { label: "Inflação (IPCA)", value: "inflation-linked" }
+            { label: t('fixedIncomeBenchmark.pre_fixed'), value: "pre_fixed" },
+            { label: t('fixedIncomeBenchmark.post_fixed'), value: "post_fixed" },
+            { label: t('fixedIncomeBenchmark.inflation_linked'), value: "inflation_linked" }
           ]}>
       </RadioGroupField>
 
       <PercentageField
-            label="CDI (p.y.)"
+            label={t('fixedIncomeBenchmark.investmentCategoryIndexPostFixed')}
             name="investmentCategoryIndexPostFixed"
             control={control}
           />
 
         <PercentageField
-            label="IPCA (p.y.)"
+            label={t('fixedIncomeBenchmark.investmentCategoryIndexIPCA')}
             name="investmentCategoryIndexIPCA"
             control={control}
           />
 
       <PercentageField
-            label="Gross Return Percentage"
+            label={t('fixedIncomeBenchmark.grossReturnPercentage')}
             name="grossReturnPercentage"
             control={control}
           />
 
       <NumberField
-            label="Investment Duration (Days)"
+            label={t('fixedIncomeBenchmark.durationDays')}
             name="durationDays"
             onChange={onChangeDurationDays}
             control={control}
           />
 
       <DateField
-            label="Select Start Date"
+            label={t('fixedIncomeBenchmark.dueDate')}
             name="dueDate"
             inputId="dueDate"
             minDate={new Date()}
@@ -148,11 +162,11 @@ const FixedIncomeBenchmarckForm: React.FC<{ onSubmit: (data: IFixedIncomeBenchma
           />
 
       <ButtonGroup>
-        <Submit label="Calcular" />
+        <Submit label={t('fixedIncomeBenchmark.submit')} />
       </ButtonGroup>
 
     </Form>
   );
 };
 
-export default FixedIncomeBenchmarckForm;
+export default FixedIncomeBenchmarkForm;

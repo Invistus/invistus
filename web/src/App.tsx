@@ -5,9 +5,9 @@ import MainLayout from 'layout/MainLayout';
 import './App.css';
 import HomePage from 'features/Home/HomePage';
 import { CompoundInterestPage } from 'features/CompoundInterest';
-import { FixedIncomeBenchmarckPage } from 'features/FixedIncomeBenchmarck';
-
-// const reload = () => window.location.reload();
+import { FixedIncomeBenchmarkPage } from 'features/FixedIncomeBenchmark';
+import { FixedIncomeTutorial } from 'features/Tutorials/FixedIncomeTutorial';
+import TutorialPage from 'features/Tutorials/TutorialPage';
 
 function App() {
   return (
@@ -18,8 +18,9 @@ function App() {
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/calculators/compound_interest" element={<CompoundInterestPage />} />
-              <Route path="/calculators/fixed_income_benchmark" element={<FixedIncomeBenchmarckPage />} />
+              <Route path="/calculators/fixed_income_benchmark" element={<FixedIncomeBenchmarkPage />} />
               <Route path="/calculators/rent_or_buy" element={<CompoundInterestPage />} />
+              <Route path="/tutorials/fixed_income" element={<TutorialPage tutorial={<FixedIncomeTutorial />} />} />
             </Routes>
           </MainLayout>
         </Router>
