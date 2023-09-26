@@ -26,7 +26,7 @@ export const pt: ILanguagePack = {
   },
   fixedIncomeBenchmark: {
     label: "CDB x LCA/LCI",
-    resultLabel: "Benchmark com o prazo de [durationDays] days",
+    resultLabel: "Benchmark com o prazo de [durationDays] dia(s)",
     cdb: "CDB",
     lca_lci: "LCA/LCI",
     pre_fixed: 'Pré-fixado',
