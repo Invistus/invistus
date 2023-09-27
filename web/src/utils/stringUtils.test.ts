@@ -1,4 +1,4 @@
-import { formatCurrency, parseCurrency, parseNumber, parsePercentage } from 'utils/stringUtils';
+import { formatCurrency, parseCurrency, parseNumber, parsePercentage } from './stringUtils';
 
 describe('Utility Methods', () => {
 

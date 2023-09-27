@@ -43,6 +43,7 @@ export const pt: ILanguagePack = {
     tax_0_180_days: "0 à 180 dias",
     tax_181_360_days: "181 à 360 dias",
     tax_361_720_days: "361 à 720 dias",
+    tax_above_720_days: "Acima de 720 dias",
     dividendYield: "Dividend Yield",
     tax_table: "Tabela IR",
     tax: "IR",

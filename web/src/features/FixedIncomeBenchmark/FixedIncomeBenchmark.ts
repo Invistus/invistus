@@ -38,6 +38,10 @@ export type Result = {
   benchmark: BenchmarkResult[];
 };
 
+const roundPercentage = (percentage: number): number => {
+  return Number(percentage.toFixed(4)) 
+}
+ 
 const calculateTaxRate = (days: number): [string, number] => {
   if (days <= 180) return ['0_180_days', 0.225];
   if (days <= 360) return ['181_360_days', 0.20];
@@ -83,7 +87,33 @@ const calculateSourceGrossReturn = (data: IFixedIncomeBenchmark): number => {
   }
 }
 
+export function validateFixedIncomeBenchmark(data: IFixedIncomeBenchmark): void {
+  if (data.investmentCategoryIndexPostFixed < 0) {
+      throw new Error('Investment Category Index Post Fixed cannot be negative.');
+  }
+
+  if (data.investmentCategoryIndexIPCA < 0) {
+      throw new Error('Investment Category Index IPCA cannot be negative.');
+  }
+
+  if (data.grossReturnPercentage < 0) {
+      throw new Error('Gross Return Percentage cannot be negative.');
+  }
+
+  if (data.durationDays < 0) {
+      throw new Error('Duration Days cannot be negative.');
+  }
+  
+  if (data.dueDate && data.dueDate < new Date()) {
+      throw new Error('Due Date cannot be in the past.');
+  }
+}
+
 export function calculateBenchmark(data: IFixedIncomeBenchmark): Result {
+
+  // Validate data
+  validateFixedIncomeBenchmark(data);
+
   // Calculate source total return
   const sourceGrossReturn = calculateSourceGrossReturn(data);
   const sourceNetReturn = calculateNetReturn(data.investmentType, data.investmentCategory, sourceGrossReturn, data.durationDays);
@@ -92,9 +122,9 @@ export function calculateBenchmark(data: IFixedIncomeBenchmark): Result {
   const sourceResult: SourceResult = {
     investmentType: data.investmentType,
     investmentCategory: data.investmentCategory,
-    grossReturnPercentage: data.grossReturnPercentage,
+    grossReturnPercentage: roundPercentage(data.grossReturnPercentage),
     durationDays: data.durationDays,
-    netReturn: sourceNetReturn
+    netReturn: roundPercentage(sourceNetReturn)
   };
 
   if (data.investmentType === 'CDB') {
@@ -114,9 +144,9 @@ export function calculateBenchmark(data: IFixedIncomeBenchmark): Result {
       const benchmark: BenchmarkResult = {
         investmentType: type,
         investmentCategory: category,
-        grossReturnPercentage: benchmarkGrossReturn,
+        grossReturnPercentage: roundPercentage(benchmarkGrossReturn),
         durationDays: data.durationDays,
-        netReturn: sourceNetReturn
+        netReturn: roundPercentage(sourceNetReturn)
       };
 
       if (category === 'post_fixed') {

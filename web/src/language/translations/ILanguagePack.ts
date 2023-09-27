@@ -41,6 +41,7 @@ export interface ILanguagePack {
       tax_0_180_days: string,
       tax_181_360_days: string,
       tax_361_720_days: string,
+      tax_above_720_days: string,
       dividendYield: string,
       tax_table: string,
       tax: string,

@@ -16,7 +16,8 @@ export const FixedIncomeBenchmarkPage: React.FC = () => {
   const [result, setResult] = useState<Result>();
 
   const handleFormSubmit = async (data: IFixedIncomeBenchmark) => {
-    setResult(await calculateBenchmark(data));
+    const r = await calculateBenchmark(data);
+    setResult(r);
   };
 
   return (
