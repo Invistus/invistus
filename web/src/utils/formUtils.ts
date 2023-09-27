@@ -21,7 +21,7 @@ export const getInputDefaults = (): DefaultInputValues => {
 }
 
 
-export const useInput = () => {
+export const useNumericInput = () => {
     const inputRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {

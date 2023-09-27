@@ -1,7 +1,7 @@
 import React, { ChangeEvent } from 'react';
 import InputProps from 'components/forms/inputs/IInputProps';
 import { parseNumber, formatCurrency } from 'utils/stringUtils'
-import { useInput } from 'utils/formUtils';
+import { useNumericInput } from 'utils/formUtils';
 
 export const truncateToMaxDigits = (num: String, maxDigits = 15): string => {
     let str = num.toString();   
@@ -15,7 +15,7 @@ export const truncateToMaxDigits = (num: String, maxDigits = 15): string => {
 
 const CurrencyInput: React.FC<InputProps> = ({ onChange, value, ...props }) => {
 
-    const { inputRef } = useInput();
+    const { inputRef } = useNumericInput();
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         let currencyValue = e.target.value.toString();

@@ -1,11 +1,11 @@
 import React, { ChangeEvent } from 'react';
 import InputProps from 'components/forms/inputs/IInputProps';
 import { parseNumber, formatPercentage } from 'utils/stringUtils';
-import { useInput } from 'utils/formUtils';
+import { useNumericInput } from 'utils/formUtils';
 
 const PercentageInput: React.FC<InputProps> = ({ value, onChange, ...props }) => {
 
-    const { inputRef } = useInput();
+    const { inputRef } = useNumericInput();
 
     const handleKeyDown= (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Delete' || e.key === 'Backspace') {

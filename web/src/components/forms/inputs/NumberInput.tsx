@@ -1,11 +1,11 @@
 import React, { ChangeEvent } from 'react';
 import InputProps from './IInputProps';
 import { parseNumber, formatNumber } from 'utils/stringUtils';
-import { useInput } from 'utils/formUtils';
+import { useNumericInput } from 'utils/formUtils';
 
 const NumberInput: React.FC<InputProps> = ({ value, onChange, ...props }) => {
 
-    const { inputRef } = useInput();
+    const { inputRef } = useNumericInput();
     
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const inputValue: number =  parseNumber(e.target.value.replace(/[^0-9]/g, '')) ?? 0;
