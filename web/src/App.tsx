@@ -2,11 +2,12 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { LanguageProvider } from 'language/LanguageContext';
 import MainLayout from 'layout/MainLayout';
-import HomePage from 'pages/home/HomePage';
-import CompoundInterestPage from 'pages/calculators/CompoundInterestPage';
 import './App.css';
-
-// const reload = () => window.location.reload();
+import HomePage from 'features/Home/HomePage';
+import { CompoundInterestPage } from 'features/CompoundInterest';
+import { FixedIncomeBenchmarkPage } from 'features/FixedIncomeBenchmark';
+import { FixedIncomeTutorial } from 'features/Tutorials/FixedIncomeTutorial';
+import TutorialPage from 'features/Tutorials/TutorialPage';
 
 function App() {
   return (
@@ -16,9 +17,10 @@ function App() {
           <MainLayout>
             <Routes>
               <Route path="/" element={<HomePage />} />
-              <Route path="/calculadora/juros_compostos" element={<CompoundInterestPage />} />
-              <Route path="/calculadora/sac_vs_price" element={<CompoundInterestPage />} />
-              <Route path="/calculadora/cdb_vs_lc" element={<CompoundInterestPage />} />
+              <Route path="/calculators/compound_interest" element={<CompoundInterestPage />} />
+              <Route path="/calculators/fixed_income_benchmark" element={<FixedIncomeBenchmarkPage />} />
+              <Route path="/calculators/rent_or_buy" element={<CompoundInterestPage />} />
+              <Route path="/tutorials/fixed_income" element={<TutorialPage tutorial={<FixedIncomeTutorial />} />} />
             </Routes>
           </MainLayout>
         </Router>

@@ -1,0 +1,2 @@
+export { FixedIncomeBenchmarkPage } from './FixedIncomeBenchmarkPage';
+

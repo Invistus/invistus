@@ -10,7 +10,7 @@ const Header = () => {
                     <img src="/images/logo/invistus_logo.svg" alt="Logo" />
                 </Link>
             </div>
-            <button className="btn btn-light">UserProfile</button>
+            {/* <button className="btn btn-light">UserProfile</button> */}
         </header>
     );
 }
