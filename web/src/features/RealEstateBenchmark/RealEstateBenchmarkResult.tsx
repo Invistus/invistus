@@ -30,7 +30,7 @@ export const RealEstateBenchmarkResult: React.FC<StrategyOutput> = (strategy: St
     const { t } = useTranslation();
 
     return (
-        <div>
+        <>
             <Panel title={`${t('realEstateBenchmark.bestStrategy')} ${t(`realEstateBenchmark.${strategy.bestStrategy.toLocaleLowerCase()}`)}`}>
                 <div className="real-estate-benchmark-panel">
                     <div className="buy-strategy">
@@ -84,6 +84,6 @@ export const RealEstateBenchmarkResult: React.FC<StrategyOutput> = (strategy: St
             <Panel title={t('realEstateBenchmark.assetsProgression')}>
                 <RealEstateBenchmarkChart strategyData={strategy} />
             </Panel>
-          </div>
+          </>
     )
 }

@@ -28,32 +28,18 @@ interface RealEstateBenchmarkInputValues extends FieldValues {
 };
 
 const { currency, percentage, number } = getInputDefaults();
-// const defaultValues: RealEstateBenchmarkInputValues =  {
-//   homePrice: currency,
-//   homeAppreciationRate: percentage,
-//   rentAmount: currency,
-//   rentRate: percentage,
-//   currentSavings: currency,
-//   monthlyContribution: currency,
-//   mortgageRate: percentage,
-//   downPaymentPercentage: percentage,
-//   additionalMortageFees: currency,
-//   investmentReturnRate: percentage,
-//   periodInMonths: number
-// }
-
 const defaultValues: RealEstateBenchmarkInputValues =  {
-  homePrice: "R$ 1.000.000,00",
-  homeAppreciationRate: "6,00%",
-  rentAmount: "R$ 4.500,00",
-  rentRate: "10,00%",
-  currentSavings: "R$ 0,00",
-  monthlyContribution: "R$ 0,00",
-  mortgageRate: "10,00%",
-  downPaymentPercentage: "20,00%",
-  additionalMortageFees: "R$ 0,00",
-  investmentReturnRate: "0,00%",
-  periodInMonths: "240"
+  homePrice: currency,
+  homeAppreciationRate: percentage,
+  rentAmount: currency,
+  rentRate: percentage,
+  currentSavings: currency,
+  monthlyContribution: currency,
+  mortgageRate: percentage,
+  downPaymentPercentage: percentage,
+  additionalMortageFees: currency,
+  investmentReturnRate: percentage,
+  periodInMonths: number
 }
 
 interface FormProps {
