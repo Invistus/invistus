@@ -54,5 +54,48 @@ export const en: ILanguagePack = {
       grossReturnPercentageGreaterThanZero: "Rate must be greater than zero",
       durationDaysGreaterThanZero: "Duration must be greater than zero",
     }
-  }  
+  },
+  realEstateBenchmark: {
+    label: "Real state benchmark",
+    realEstate: "Real estate",
+    assets: "Assets",
+    homePrice: "Home price",
+    homeAppreciationRate: "Home appreciation annual rate",
+    mortage: "Mortage",
+    mortgageRate: "Mortage annual rate",
+    downPaymentPercentage: "Down payment percentage",
+    additionalMortageFees: "Additional Financing Fees",
+    rent: "Rent",
+    rentAmount: "Rent month amount",
+    rentRate: "Rent annual rate",
+    investment: "Investment",
+    currentSavings: "Current savings",
+    monthlyContribution: "Monthly contribution",
+    investmentReturnRate: "Investment annual return rate",
+    period: "Period",
+    periodInMonths: "Periods in months",
+    strategy: "Strategy",
+    bestStrategy: "Best strategy",
+    buy: "Buy",
+    assetsProgression: "Assets progression",
+    submit: "Calculate",
+    help: {
+      mortgageRate: "The Total Effective Cost of the mortgage encompasses the interest rates and the fees charged by the financial institution",
+      rentRate: "Usually the inflation index",  
+      currentSavings: "The total in financial investments",
+      monthlyContribution: "The monthly contribution one commits to financing or rent, with the remainder being allocated to investments",
+      investmentReturnRate: "The appreciation rate of the investments, which will also be applied to the monthly contributions",
+      additionalMortageFees: "Other costs related to obtaining a mortage"
+    },
+    errors: {
+      homePriceGreaterThanZero: "Home price must be greater than zero",
+      mortageRateGreaterThanZero: "Mortage annual rate must be greater than zero",
+      rentAmountGreaterThanZero: "Rent month amount must be greater than zero",
+      periodInMonthsGreaterThanZero: "Period must be greater than zero",
+      monthlyContributionIsLessThanMortageMonthlyPayment: "Monthly contribution is less than mortage monthly payment",
+      monthlyContributionIsLessThanRentAmount: "Monthly contribution is less than Rent Amount",
+      noFundsToBuy: "No funds to buy outright",
+      noFundsToMortage: "No funds to acquire the mortage"  
+    }
+  }
 };

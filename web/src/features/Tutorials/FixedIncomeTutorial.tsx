@@ -34,11 +34,11 @@ const pt = (
             Um benefício é que eles são <u>isentos de Imposto de Renda</u> para pessoas físicas.
         </p>
         <h3>Benefícios da Renda Fixa</h3>
-        <p><b>Segurança:</b> Renda fixa é considerada um dos investimentos mais seguros.</p>
+        <p><b>Segurança:</b> Renda fixa é considerada um dos investmentos mais seguros.</p>
         <p><b>Previsibilidade:</b> Você sabe quanto vai receber no final do período.</p>
         <p><b>Diversidade:</b> Existem várias opções para escolher de acordo com seu perfil.</p>
         <h3>Riscos</h3>
-        <p><b>Liquidez:</b> Dependendo do investimento, pode não ser fácil retirar o dinheiro antes do prazo.</p>
+        <p><b>Liquidez:</b> Dependendo do investmento, pode não ser fácil retirar o dinheiro antes do prazo.</p>
         <p><b>Rentabilidade:</b> Em alguns casos, pode não superar a inflação, fazendo você perder poder de compra.  </p>        
         <h2>Categorias: Pré-fixado e Pós-fixado</h2>
         <h3>Pré-fixado</h3>
@@ -50,22 +50,22 @@ const pt = (
         <p>
         o rendimento varia conforme um índice. Os mais comuns são:
         </p>
-        <p><b>CDI:</b> Sigla para Certificado de Depósito Interbancário. Se um investimento rende 100% do CDI e este índice foi de 10% ao ano, seu dinheiro renderá esses 10%.</p>
-        <p><b>Inflação (IPCA):</b> A rentabilidade é atrelada à inflação. Por exemplo, se o investimento for IPCA + 3% ao ano e a inflação foi de 5%, seu rendimento será de 8%.</p>
-        <h2>Quando optar por investimentos Pré-fixados ou Pós-fixados?</h2>
+        <p><b>CDI:</b> Sigla para Certificado de Depósito Interbancário. Se um investmento rende 100% do CDI e este índice foi de 10% ao ano, seu dinheiro renderá esses 10%.</p>
+        <p><b>Inflação (IPCA):</b> A rentabilidade é atrelada à inflação. Por exemplo, se o investmento for IPCA + 3% ao ano e a inflação foi de 5%, seu rendimento será de 8%.</p>
+        <h2>Quando optar por investmentos Pré-fixados ou Pós-fixados?</h2>
         <p>
             A escolha entre investir em renda fixa pré-fixada ou pós-fixada não é uma ciência exata, 
             mas existem algumas situações e contextos que podem ajudar a direcionar sua decisão.
         </p>
         <h3>Pré-fixados</h3>
-        <p><b>Previsibilidade do rendimento:</b> Se você gosta da ideia de saber exatamente quanto seu dinheiro vai render ao final do investimento, o pré-fixado é a melhor opção.</p>
+        <p><b>Previsibilidade do rendimento:</b> Se você gosta da ideia de saber exatamente quanto seu dinheiro vai render ao final do investmento, o pré-fixado é a melhor opção.</p>
         <p><b>Expectativa de queda nos juros:</b> Se você acredita que os juros da economia vão cair no futuro, pode ser interessante "travar" uma taxa de rendimento agora. Por exemplo, se o rendimento oferecido é de 10% ao ano e você espera que os juros caiam para 5%, você garante uma rentabilidade superior ao que seria oferecido no futuro.</p>
         <p><b>Planejamento financeiro:</b> Para objetivos financeiros específicos e de curto/médio prazo, o pré-fixado permite que você saiba o exato valor que terá no fim do período.</p>
         <h3>Pós-fixados</h3>
         <p><b>Proteção contra a inflação:</b> Investimentos atrelados ao IPCA garantem que seu dinheiro renda acima da inflação, preservando seu poder de compra. Ideal para objetivos de longo prazo, como aposentadoria.</p>
         <p><b>Expectativa de alta nos juros:</b> Se há previsão de que os juros da economia subam, investir no pós-fixado atrelado ao CDI, por exemplo, pode trazer rendimentos melhores. Isso porque o CDI tende a acompanhar a taxa de juros básica da economia.</p>
         <p><b>Flexibilidade:</b> Como o rendimento do pós-fixado está atrelado a índices econômicos, pode ser interessante para quem quer acompanhar o mercado e ter a possibilidade de ganhos variáveis.</p>
-        <p><b>Diversificação:</b> Para quem já possui outros investimentos e deseja diversificar, os pós-fixados oferecem uma alternativa que varia de acordo com o comportamento do mercado.</p>
+        <p><b>Diversificação:</b> Para quem já possui outros investmentos e deseja diversificar, os pós-fixados oferecem uma alternativa que varia de acordo com o comportamento do mercado.</p>
     </div>)
 
 const en = (

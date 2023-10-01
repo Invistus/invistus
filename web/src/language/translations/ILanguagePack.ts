@@ -53,4 +53,47 @@ export interface ILanguagePack {
         grossReturnPercentageGreaterThanZero: string
       }
     };
+    realEstateBenchmark: {
+      label: string,
+      realEstate: string,
+      assets: string,
+      homePrice: string,
+      homeAppreciationRate: string,
+      mortage: string,
+      mortgageRate: string,
+      downPaymentPercentage: string,
+      additionalMortageFees: string,
+      rent: string,
+      rentAmount: string,
+      rentRate: string,
+      investment: string,
+      currentSavings: string,
+      monthlyContribution: string,
+      investmentReturnRate: string,
+      period: string,
+      periodInMonths: string,
+      strategy: string,
+      bestStrategy: string,
+      buy: string,
+      assetsProgression: string,
+      submit: string,
+      help: {
+        mortgageRate: string,
+        rentRate: string,
+        currentSavings: string,
+        monthlyContribution: string,
+        investmentReturnRate: string,
+        additionalMortageFees: string
+      },
+      errors: {
+        homePriceGreaterThanZero: string,
+        mortageRateGreaterThanZero: string,
+        rentAmountGreaterThanZero: string,
+        periodInMonthsGreaterThanZero: string,
+        monthlyContributionIsLessThanMortageMonthlyPayment: string,
+        monthlyContributionIsLessThanRentAmount: string,
+        noFundsToBuy: string,
+        noFundsToMortage: string  
+      }
+    };
   }

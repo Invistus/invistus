@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`FixedIncomeBenchmark calculateBenchmark should throw an error for negative durationDays 1`] = `"Duration Days cannot be negative."`;
-
-exports[`FixedIncomeBenchmark calculateBenchmark should throw an error for negative grossReturnPercentage 1`] = `"Gross Return Percentage cannot be negative."`;
-
-exports[`FixedIncomeBenchmark calculateBenchmark should throw an error for negative investmentCategoryIndexIPCA 1`] = `"Investment Category Index IPCA cannot be negative."`;
-
-exports[`FixedIncomeBenchmark calculateBenchmark should throw an error for negative investmentCategoryIndexPostFixed 1`] = `"Investment Category Index Post Fixed cannot be negative."`;

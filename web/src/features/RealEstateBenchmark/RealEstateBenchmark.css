@@ -1,0 +1,73 @@
+div.real-estate-benchmark-chart {
+    height: 400px;
+    margin: 2rem 0;
+}
+
+.real-estate-benchmark-panel {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-column-gap: 2rem;
+    grid-row-gap: 2rem;    
+    align-items: center;
+    justify-content: space-evenly;
+  }
+  
+  .real-estate-benchmark-panel>div {
+    /* width: 100%; */
+    max-width: 350px;
+    padding: .5rem;
+    margin: 0 0 1rem;
+    border-radius: var(--bs-border-radius);
+    box-shadow: var(--inv-inner-shadow);
+    text-align: center;
+    height: 100%;
+  }
+  
+  .real-estate-benchmark-panel>div.buy-strategy {
+    background-color: #2089C9;
+  }
+  
+  .real-estate-benchmark-panel>div.mortage-strategy {
+    background-color: #1FBF78;
+  }
+  
+  .real-estate-benchmark-panel>div.rent-strategy {
+    background-color: #725FEB;
+  }
+  
+  .real-estate-benchmark-panel p {
+    margin-bottom: .3rem;
+    font-weight: bold;
+    color: var(--bs-light);
+  }
+
+  .real-estate-benchmark-panel p.label.strategy {
+    padding: 1rem;
+    font-size: large;
+    border-radius: var(--bs-border-radius);
+    margin-bottom: 1rem;
+  }
+
+  .real-estate-benchmark-panel p.label.buy.strategy {
+    background-color: var(--bs-light);
+    color: #2089C9;
+  }
+
+  .real-estate-benchmark-panel p.label.mortage.strategy {
+    background-color: var(--bs-light);
+    color: #1FBF78;
+  }
+
+  .real-estate-benchmark-panel p.label.rent.strategy {
+    background-color: var(--bs-light);
+    color: #725FEB;
+  }
+
+  .real-estate-benchmark-panel p.label.symbol {
+    font-size: x-large;
+  }
+  
+  .real-estate-benchmark-panel .value {
+    font-size: x-large;
+    line-height: 1.5rem;
+  }

@@ -1,4 +1,4 @@
-import { formatCurrency, parseCurrency, parseNumber, parsePercentage } from './stringUtils';
+import { formatCurrency, formatErrorMessage, parseCurrency, parseNumber, parsePercentage } from './stringUtils';
 
 describe('Utility Methods', () => {
 
@@ -45,4 +45,48 @@ describe('Utility Methods', () => {
       expect(parsePercentage('invalid%')).toBeNull();
     });
   });
+
+  describe('formatErrorMessage', () => {
+
+    // 1. Message has placeholders, data provides replacements
+    it('should replace placeholders with provided data', () => {
+      const message = "Hello [name], you are [age] years old!";
+      const data = {
+        name: "John",
+        age: "30"
+      };
+      const result = formatErrorMessage(message, data);
+      expect(result).toBe("Hello John, you are 30 years old!");
+    });
+  
+    // 2. Message has placeholders, but data doesn't provide replacements for all
+    it('should replace only the placeholders with provided data keys', () => {
+      const message = "Hello [name], you are [age] years old!";
+      const data = {
+        name: "John"
+      };
+      const result = formatErrorMessage(message, data);
+      expect(result).toBe("Hello John, you are [age] years old!");
+    });
+  
+    // 3. Message has no placeholders, but data is provided
+    it('should return the original message if no placeholders match the data', () => {
+      const message = "Hello there!";
+      const data = {
+        name: "John",
+        age: "30"
+      };
+      const result = formatErrorMessage(message, data);
+      expect(result).toBe(message);
+    });
+  
+    // 4. Neither the message nor data contain placeholders or keys
+    it('should return the original message if no data is provided', () => {
+      const message = "Hello there!";
+      const data = {};
+      const result = formatErrorMessage(message, data);
+      expect(result).toBe(message);
+    });
+  });
+  
 });

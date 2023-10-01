@@ -8,7 +8,7 @@
   --inv-secondary-color: #ed5267;
   --inv-support-color: #bcbcbc;
   --bs-dark-rgb: var(--inv-dark-color);
-  --bs-light-gray: #f2f2f2;
+  --bs-light-gray: #dfdfdf;
   --bs-light-green: #d7ffad;
   
   /* Font */
@@ -110,6 +110,11 @@ header {
   opacity: .8;
   font-weight: bold;
   font-size: small;
+}
+
+.menu-items ul li {
+  line-height: 1.0rem;
+  margin: .6rem 0rem;
 }
 
 .menu-items ul a {
@@ -246,6 +251,15 @@ form label {
   vertical-align: bottom;
 }
 
+form p.field-group {
+  border-bottom: solid 1px var(--bs-light-gray);
+  border-radius: 0;
+  margin: 1rem 0 .5rem;
+  font-weight: 500;
+  color: var(--inv-dark-color);
+  opacity: 0.45;
+}
+
 input {
   color: var(--bs-);
 }
@@ -262,6 +276,22 @@ select {
 
 .input-side-button {
   min-width: 80px;
+}
+
+/* Help icon */
+span.help-icon svg {
+  color: #725FEB;
+  opacity: .45;
+}
+
+span.help-icon svg:hover {
+  color: var(--bs-blue);
+  opacity: .45;
+}
+
+div.help-icon-message {
+  z-index: 1;
+  box-shadow: var(--inv-shadow);
 }
 
 
@@ -301,7 +331,7 @@ div.table .row:first-child {
   color: var(--bs-white);
   font-weight: 600;
   text-align: center;
-  background-color: rgb(89, 97, 155);
+  background-color: #725FEB;
 }
 
 div.table .col.center {
@@ -354,4 +384,13 @@ div.tutorial-container u {
   color: var(--bs-gray);
   text-decoration: underline;
   background-color: var(--bs-light-gray);
+}
+
+
+
+
+.break-words {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto; 
 }
