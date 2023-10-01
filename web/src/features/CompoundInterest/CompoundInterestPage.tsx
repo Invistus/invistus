@@ -27,8 +27,7 @@ export const CompoundInterestPage = () => {
         </Panel>
         {result && (
             <>
-              <Panel>
-                  <h3>{t('common.result')}</h3>
+              <Panel subTitle={t('common.result')}>
                   <div className="result-compound-interest-panel">
                     <div className="total-amount">
                       <p className="label">Valor total final</p>

@@ -141,3 +141,29 @@ export const parseNumber = (str: string, locale: string = DEFAULT_LOCALE): numbe
     }
     return null;
 }
+
+/**
+ * Formats an error message by replacing placeholders in the message with data.
+ * 
+ * The function expects placeholders in the message to be in the format [key], 
+ * where "key" is a property name in the provided data object. It will replace 
+ * each [key] in the message with the corresponding value from the data object.
+ * 
+ * Example:
+ *  - message: "User [name] has [status]."
+ *  - data: { name: 'John', status: 'active' }
+ *  Result: "User John has active."
+ * 
+ * @param {string} message - The error message containing placeholders wrapped in square brackets.
+ * @param {any} data - An object containing key-value pairs to replace the placeholders in the message.
+ * 
+ * @returns {string} - The formatted message with placeholders replaced by actual data values.
+ */
+export const formatErrorMessage = (message: string, data: any) => {
+  let result = message;
+  for (const key in data) {
+    const replaceKey = `[${key}]`; // create a replaceable key with square brackets
+    result = result.replace(replaceKey, data[key]); // replace each key in the string with its value
+  }
+  return result;
+}

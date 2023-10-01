@@ -54,5 +54,48 @@ export const pt: ILanguagePack = {
       grossReturnPercentageGreaterThanZero: "Taxa de juros deve ser maior que zero",
       durationDaysGreaterThanZero: "Prazo deve ser maior que zero",   
     }
-  }    
+  },
+  realEstateBenchmark: {
+    label: "Comprar, Financiar ou Alugar Imóvel",
+    realEstate: "Imóvel",
+    assets: "Patrimônio",
+    homePrice: "Valor do imóvel",
+    homeAppreciationRate: "Taxa anual de valorização",
+    mortage: "Financiamento",
+    mortgageRate: "Taxa anual (CET)",
+    downPaymentPercentage: "Percentual de entrada",
+    additionalMortageFees: "Custo adicional para financiamento",
+    rent: "Aluguel",
+    rentAmount: "Valor mensal do aluguel",
+    rentRate: "Taxa de reajuste anual",
+    investment: "Investimento",
+    currentSavings: "Aplicação atual",
+    monthlyContribution: "Renda mensal",
+    investmentReturnRate: "Taxa de reajuste anual",
+    period: "Período",
+    periodInMonths: "Período em meses",
+    strategy: "Estratégia",
+    bestStrategy: "Melhor estratégia",
+    buy: "Compra à vista",
+    assetsProgression: "Evolução patrimonial",
+    submit: "Calcular",
+    help: {
+      mortgageRate: "Custo Efetivo Total do financiamento imobiliário abrange as taxas de juros e os encargos cobrados pela instituição financeira",
+      rentRate: "O índice mais comumente usado para este propósito é o IGP-M (Índice Geral de Preços do Mercado)",  
+      currentSavings: "O total em investimentos financeiros. Este valor é utilizado na compra à vista ou como entrada do financiamento no cálculo",
+      monthlyContribution: "O aporte mensal que se compromente com o financiamento ou o aluguel. Sendo o restante destinado à investimentos.",
+      investmentReturnRate: "A taxa de valorização dos investimentos e será aplicado também aos aportes mensais",
+      additionalMortageFees: "Outros custos relacionados à aquisição de um financiamento, como o TAC"
+    },
+    errors: {
+      homePriceGreaterThanZero: "Valor do imóvel deve ser maior que zero",
+      mortageRateGreaterThanZero: "Taxa anual de reajuste do financiamento deve ser maior que zero",
+      rentAmountGreaterThanZero: "Valor mensal do aluguel deve ser maior que zero",
+      periodInMonthsGreaterThanZero: "período em meses deve ser maior que zero",
+      monthlyContributionIsLessThanMortageMonthlyPayment: "Renda mensal [monthlyContribution] não suporta parcela do financiamento de [monthlyPayment] no mês [period]",
+      monthlyContributionIsLessThanRentAmount: "Renda mensal [monthlyContribution] não suporta parcela do aluguel de [rentAmount] no mês [period]",
+      noFundsToBuy: "Sem fundos para pagamento à vista",
+      noFundsToMortage: "Sem fundos para para pagar a entrada do financiamento",  
+    }
+  }
 };

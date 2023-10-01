@@ -18,6 +18,7 @@ const LeftMenu = () => {
                         <ul>
                             <li><Link to="/calculators/compound_interest">{t('compoundInterest.label')}</Link></li>
                             <li><Link to="/calculators/fixed_income_benchmark">{t('fixedIncomeBenchmark.label')}</Link></li>
+                            <li><Link to="/calculators/real_state_benchmark">{t('realEstateBenchmark.label')}</Link></li>
                         </ul>
                     </li>
                     <li>Tutoriais

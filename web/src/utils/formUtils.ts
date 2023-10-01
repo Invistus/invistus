@@ -9,6 +9,14 @@ type DefaultInputValues = {
 
 let defaultInstance: DefaultInputValues | null = null;
 
+/**
+ * Retrieves default formatted values for numeric input types.
+ * 
+ * Uses lazy instantiation to create a single instance of default values 
+ * to avoid recalculating them every time the function is called.
+ * 
+ * @returns {DefaultInputValues} An object containing default formatted values.
+ */
 export const getInputDefaults = (): DefaultInputValues => {
     if (!defaultInstance) {
         defaultInstance = {
@@ -20,7 +28,14 @@ export const getInputDefaults = (): DefaultInputValues => {
     return defaultInstance;
 }
 
-
+/**
+ * Custom hook to manage numeric input fields.
+ * 
+ * When an input field managed by this hook gains focus, the cursor position 
+ * will automatically move to the end of the input value.
+ * 
+ * @returns {object} An object containing the inputRef which should be attached to the input field.
+ */
 export const useNumericInput = () => {
     const inputRef = useRef<HTMLInputElement>(null);
 
