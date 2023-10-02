@@ -18,7 +18,7 @@ jobs:
         environment: ['development', 'staging', 'production']
         include:
           - environment: development
-            branch: feature/*
+            branch: develop/*
             s3_bucket: invistus-web-dev
           - environment: staging
             branch: release/*
