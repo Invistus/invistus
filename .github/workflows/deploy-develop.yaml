@@ -1,0 +1,28 @@
+name: Deploy React Frontend to AWS Amplify
+
+permissions:
+  id-token: write # This is required for requesting the JWT
+  contents: read  # This is required for actions/checkout
+
+on:
+  push:
+    branches:
+      - develop/
+
+env:
+  AWS_REGION: "sa-east-1"
+  AWS_ACCOUNT: "993377844237"
+  AWS_ROLE_NAME: "GithubOIDCRole"
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          role-to-assume: arn:aws:iam::${{AWS_ACCOUNT}}:role/${{AWS_ROLE_NAME}}
+          role-session-name: github-action-session
+          aws-region: ${{ env.AWS_REGION }}
+

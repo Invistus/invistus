@@ -38,6 +38,7 @@ coverage
 
 # Jest
 /.jest
+__snapshots__
 
 # Miscellaneous
 *.tgz
