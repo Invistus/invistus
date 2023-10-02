@@ -10,11 +10,6 @@ on:
       - develop
       - 2-chore-create-cicd-with-github-actions
 
-env:
-  AWS_REGION: "sa-east-1"
-  AWS_ACCOUNT: "993377844237"
-  AWS_ROLE_NAME: "GithubOIDCRole"
-
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
@@ -23,7 +18,7 @@ jobs:
       - name: configure aws credentials
         uses: aws-actions/configure-aws-credentials@v3
         with:
-          role-to-assume: arn:aws:iam::${{env.AWS_ACCOUNT}}:role/${{env.AWS_ROLE_NAME}}
+          role-to-assume: arn:aws:iam::${{secrets.AWS_ACCOUNT_ID}}:role/${{secrets.AWS_OIDC_ROLE}}
           role-session-name: github-action-session
-          aws-region: ${{ env.AWS_REGION }}
+          aws-region: ${{ secrets.AWS_REGION }}
 
