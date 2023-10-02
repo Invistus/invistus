@@ -31,34 +31,39 @@ jobs:
             s3_bucket: invistus-web-prod
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Git clone the repository
+        uses: actions/checkout@v4
+      
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18.x'
 
-    - name: Install and Build
-      working-directory: web
-      run: |
-        npm ci
-        npm run build
+      - name: Install and Build
+        working-directory: web
+        run: |
+          npm ci
+          npm run build
 
-    - name: configure aws credentials
-      uses: aws-actions/configure-aws-credentials@v3
-      with:
-        role-to-assume: arn:aws:iam::${{secrets.AWS_ACCOUNT_ID}}:role/${{secrets.AWS_OIDC_ROLE}}
-        role-session-name: github-action-session
-        aws-region: ${{ secrets.AWS_REGION }}
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          role-to-assume: arn:aws:iam::${{secrets.AWS_ACCOUNT_ID}}:role/${{secrets.AWS_OIDC_ROLE}}
+          role-session-name: github-action-session
+          aws-region: ${{ secrets.AWS_REGION }}
 
-    - name: Tag S3 Bucket
-      run: |
-        aws s3api put-bucket-tagging --bucket ${{ matrix.s3_bucket }} --tagging 'TagSet=[{Key=Application,Value=Invistus},{Key=Component,Value=web},{Key=Environment,Value=${{ matrix.environment }}}]'
+      - name: Tag S3 Bucket
+        run: |
+          aws s3api put-bucket-tagging --bucket ${{ matrix.s3_bucket }} --tagging 'TagSet=[{Key=Application,Value=Invistus},{Key=Component,Value=web},{Key=Environment,Value=${{ matrix.environment }}}]'
 
-    - name: Deploy to S3
-      working-directory: web
-      if: startsWith(github.ref, matrix.branch)
-      uses: jakejarvis/s3-sync-action@master
-      with:
-        args: --acl public-read --follow-symlinks --delete
-      env:
-        AWS_S3_BUCKET: ${{ matrix.s3_bucket }}
-        SOURCE_DIR: 'build'
+      - name: Deploy to S3
+        working-directory: web
+        if: startsWith(github.ref, matrix.branch)
+        uses: jakejarvis/s3-sync-action@master
+        with:
+          args: --acl public-read --follow-symlinks --delete
+        env:
+          AWS_S3_BUCKET: ${{ matrix.s3_bucket }}
+          SOURCE_DIR: 'build'
 
 
