@@ -17,8 +17,11 @@ jobs:
       matrix:
         environment: ['development', 'staging', 'production']
         include:
+          - environment: test
+            branch: 2-chore-create-cicd-with-github-actions
+            s3_bucket: invistus-web-dev
           - environment: development
-            branch: develop/*
+            branch: develop
             s3_bucket: invistus-web-dev
           - environment: staging
             branch: release/*
