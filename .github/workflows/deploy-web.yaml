@@ -1,4 +1,4 @@
-name: Deploy React Frontend to AWS Amplify
+name: Deploy Web Application
 
 permissions:
   id-token: write # This is required for requesting the JWT
@@ -8,28 +8,16 @@ on:
   push:
     branches:
       - develop
+      - 'releases/**'
+      - main
       - 2-chore-create-cicd-with-github-actions
 
-jobs:
-  build_and_deploy:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        environment: ['development', 'staging', 'production']
-        include:
-          - environment: development
-            branch: 2-chore-create-cicd-with-github-actions
-            s3_bucket: invistus-web-dev
-          # - environment: development
-          #   branch: develop
-          #   s3_bucket: invistus-web-dev
-          - environment: staging
-            branch: release/*
-            s3_bucket: invistus-web-staging
-          - environment: production
-            branch: main
-            s3_bucket: invistus-web-prod
+env:
+  BUCKET_NAME: invistus-web-prod
 
+jobs:
+  build:
+    runs-on: ubuntu-latest
     steps:
       - name: Git clone the repository
         uses: actions/checkout@v4
@@ -45,6 +33,14 @@ jobs:
           npm ci
           npm run build
 
+  # deploy_dev:
+  # deploy_staging:
+
+
+  deploy_production:
+    needs: build
+
+      # AWS Login with OIDC
       - name: configure aws credentials
         uses: aws-actions/configure-aws-credentials@v3
         with:
@@ -52,18 +48,19 @@ jobs:
           role-session-name: github-action-session
           aws-region: ${{ secrets.AWS_REGION }}
 
+      # Tag S3 bucket for web application 
       - name: Tag S3 Bucket
         run: |
           aws s3api put-bucket-tagging --bucket ${{ matrix.s3_bucket }} --tagging 'TagSet=[{Key=Application,Value=Invistus},{Key=Component,Value=web},{Key=Environment,Value=${{ matrix.environment }}}]'
 
+      # Deploy web pkg to S3 bucket
       - name: Deploy to S3
         working-directory: web
-        if: startsWith(github.ref, matrix.branch)
         uses: jakejarvis/s3-sync-action@master
         with:
           args: --acl public-read --follow-symlinks --delete
         env:
-          AWS_S3_BUCKET: ${{ matrix.s3_bucket }}
+          AWS_S3_BUCKET: ${{ env.BUCKET_NAME }}
           SOURCE_DIR: 'build'
 
 
