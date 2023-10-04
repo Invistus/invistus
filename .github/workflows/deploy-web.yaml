@@ -28,7 +28,7 @@ jobs:
           node-version: '18.x'
 
       - name: Install and Build
-        working-directory: web
+        working-directory: ./web
         run: |
           npm ci
           npm run build
@@ -56,7 +56,7 @@ jobs:
 
       # Deploy web pkg to S3 bucket
       - name: Deploy to S3 bucket
-        working-directory: web
-        run: aws s3 sync ./build/ s3://${{ env.BUCKET_NAME }} --delete
+        working-directory: ./web
+        run: aws s3 sync ./build/ s3://$BUCKET_NAME --delete
 
 
