@@ -54,13 +54,8 @@ jobs:
           aws s3api put-bucket-tagging --bucket ${{ matrix.s3_bucket }} --tagging 'TagSet=[{Key=Application,Value=Invistus},{Key=Component,Value=web},{Key=Environment,Value=${{ matrix.environment }}}]'
 
       # Deploy web pkg to S3 bucket
-      - name: Deploy to S3
+      - name: Deploy to S3 bucket
         working-directory: web
-        uses: jakejarvis/s3-sync-action@master
-        with:
-          args: --acl public-read --follow-symlinks --delete
-        env:
-          AWS_S3_BUCKET: ${{ env.BUCKET_NAME }}
-          SOURCE_DIR: 'build'
+        run: aws s3 sync ./build/ s3://${{ env.BUCKET_NAME }} --delete
 
 
