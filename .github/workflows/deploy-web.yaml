@@ -39,6 +39,7 @@ jobs:
 
   deploy_production:
     needs: build
+    runs-on: ubuntu-latest
     steps:
       # AWS Login with OIDC
       - name: configure aws credentials
