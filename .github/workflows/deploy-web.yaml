@@ -39,7 +39,7 @@ jobs:
 
   deploy_production:
     needs: build
-
+    steps:
       # AWS Login with OIDC
       - name: configure aws credentials
         uses: aws-actions/configure-aws-credentials@v3
