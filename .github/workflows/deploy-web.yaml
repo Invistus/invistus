@@ -7,10 +7,9 @@ permissions:
 on:
   push:
     branches:
+      - 2-chore-create-cicd-with-github-actions
       - develop
       - 'releases/**'
-      - main
-      - 2-chore-create-cicd-with-github-actions
 
 env:
   BUCKET_NAME: invistus-web-prod
@@ -49,10 +48,18 @@ jobs:
           role-session-name: github-action-session
           aws-region: ${{ secrets.AWS_REGION }}
 
+    - name: Create or Ignore S3 Bucket
+      run: |
+        if ! aws s3api head-bucket --bucket $BUCKET_NAME 2>&1; then
+          aws s3api create-bucket --bucket $BUCKET_NAME --region${{ secrets.AWS_REGION }}
+        else
+          echo "Bucket already exists, skipping creation."
+        fi
+
       # Tag S3 bucket for web application 
       - name: Tag S3 Bucket
         run: |
-          aws s3api put-bucket-tagging --bucket ${{ matrix.s3_bucket }} --tagging 'TagSet=[{Key=Application,Value=Invistus},{Key=Component,Value=web},{Key=Environment,Value=${{ matrix.environment }}}]'
+          aws s3api put-bucket-tagging --bucket $BUCKET_NAME --tagging 'TagSet=[{Key=Application,Value=Invistus},{Key=Component,Value=web},{Key=Environment,Value=Test}]'
 
       # Deploy web pkg to S3 bucket
       - name: Deploy to S3 bucket
