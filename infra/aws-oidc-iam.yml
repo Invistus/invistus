@@ -8,7 +8,7 @@ Parameters:
     Type: String
     Description: Which environment will be deploy
     Default: dev
-    
+
 Resources:
 
   InvistusWorkflowDeployPolicy:
@@ -27,26 +27,25 @@ Resources:
               - s3:PutObject
               - s3:GetObject
               - s3:DeleteObject
-            Resource: !Sub 'arn:aws:s3:::invistus-web-*/*${Environment}'
+            Resource: !Sub 'arn:aws:s3:::invistus-web-*${Environment}/*'
 
   InvistusGithubWorkflowRole:
-    Type: 'AWS::IAM::Role'
+    Type: AWS::IAM::Role
     Properties:
       RoleName: !Sub 'invistus-oidc-${Environment}-role'
       AssumeRolePolicyDocument:
-        Version: '2012-10-17'
+        Version: 2012-10-17
         Statement:
-          - Effect: 'Allow'
+          - Effect: Allow
             Principal:
               Federated: !Sub 'arn:aws:iam::${AWS::AccountId}:oidc-provider/token.actions.githubusercontent.com'
-            Action: 'sts:AssumeRoleWithWebIdentity'
+            Action: sts:AssumeRoleWithWebIdentity
             Condition:
-              StringEquals:
-                token.actions.githubusercontent.com:aud: 'sts.amazonaws.com'
-                token.actions.githubusercontent.com:sub:
-                  - 'repo:Invistus/invistus:ref:refs/heads/develop'
-                  - 'repo:Invistus/invistus:ref:refs/heads/release'
-                  - 'repo:Invistus/invistus:ref:refs/heads/2-chore-create-cicd-with-github-actions'
+              ForAllValues:StringEquals:
+                token.actions.githubusercontent.com:aud: sts.amazonaws.com
+                token.actions.githubusercontent.com:iss: https://token.actions.githubusercontent.com,
+              ForAnyValue:StringLike:
+                token.actions.githubusercontent.com:sub: !Sub 'repo:Invistus/invistus:environment:${Environment}'
       ManagedPolicyArns:
         - !Ref InvistusWorkflowDeployPolicy
   
