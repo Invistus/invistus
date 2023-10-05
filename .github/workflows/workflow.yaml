@@ -37,30 +37,31 @@ jobs:
     runs-on: ubuntu-latest
     environment: development
     steps:
+
       # AWS Login with OIDC
       - name: configure aws credentials
         uses: aws-actions/configure-aws-credentials@v3
         with:
-          role-to-assume: arn:aws:iam::${{secrets.AWS_ACCOUNT_ID}}:role/${{secrets.AWS_OIDC_ROLE}}
+          role-to-assume: arn:aws:iam::993377844237:role/invistus-oidc-dev-roles
           role-session-name: github-action-session
-          aws-region: ${{ secrets.AWS_REGION }}
+          aws-region: sa-east-1
 
-      - name: Create or Ignore S3 Bucket
-        run: |
-          if ! aws s3api head-bucket --bucket $BUCKET_NAME 2>&1; then
-            aws s3api create-bucket --bucket $BUCKET_NAME --region ${{ secrets.AWS_REGION }}
-          else
-            echo "Bucket already exists, skipping creation."
-          fi
+      # - name: Create or Ignore S3 Bucket
+      #   run: |
+      #     if ! aws s3api head-bucket --bucket $BUCKET_NAME 2>&1; then
+      #       aws s3api create-bucket --bucket $BUCKET_NAME --region ${{ secrets.AWS_REGION }}
+      #     else
+      #       echo "Bucket already exists, skipping creation."
+      #     fi
 
-      # Tag S3 bucket for web application 
-      - name: Tag S3 Bucket
-        run: |
-          aws s3api put-bucket-tagging --bucket $BUCKET_NAME --tagging 'TagSet=[{Key=Application,Value=Invistus},{Key=Component,Value=web},{Key=Environment,Value=Test}]'
+      # # Tag S3 bucket for web application 
+      # - name: Tag S3 Bucket
+      #   run: |
+      #     aws s3api put-bucket-tagging --bucket $BUCKET_NAME --tagging 'TagSet=[{Key=Application,Value=Invistus},{Key=Component,Value=web},{Key=Environment,Value=Test}]'
 
-      # Deploy web pkg to S3 bucket
-      - name: Deploy to S3 bucket
-        working-directory: ./web
-        run: aws s3 sync ./build/ s3://$BUCKET_NAME --delete
+      # # Deploy web pkg to S3 bucket
+      # - name: Deploy to S3 bucket
+      #   working-directory: ./web
+      #   run: aws s3 sync ./build/ s3://$BUCKET_NAME --delete
 
 
