@@ -27,6 +27,7 @@ Resources:
               - s3:PutObject
               - s3:GetObject
               - s3:DeleteObject
+              - s3:PutBucketTagging
             Resource: !Sub 'arn:aws:s3:::invistus-web-*${Environment}/*'
 
   InvistusGithubWorkflowRole:
