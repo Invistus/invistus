@@ -78,7 +78,7 @@ const LineChart: React.FC<LineChartProps> = ({
     return () => {
       window.removeEventListener('resize', sizeChart);
     };
-  }, []);
+  }, [sizeChart]);
     
   const chartTotalWidth = typeof width === 'number' ? width : elementSize.width;
   const chartTotalHeight = typeof height === 'number' ? height : elementSize.height;
@@ -117,22 +117,21 @@ const LineChart: React.FC<LineChartProps> = ({
   const lineData = useMemo(() => {
     const r: string[] = [];
     const maxYLength = Math.max(...data.map(d => d.y.length));
-    Array.from({ length: maxYLength }, (_, col) => {
+    for (let col = 0; col < maxYLength; col++) {
       r.push(
         data.map(d => {
             return `${scaleX({ x: d.x, y: d.y[col] })},${scaleY({ x: d.x, y: d.y[col] })}`;
           }).join(' L ')
         );
-    });
+    };
     return r;
   }, [data, scaleX, scaleY]);
 
   
   const areaData = useMemo(() => {
     const r: string[] = [];
-    const maxYLength = Math.max(...data.map(d => d.y.length));
-  
-    Array.from({ length: maxYLength }, (_, col) => {
+    const maxYLength = Math.max(...data.map(d => d.y.length));  
+    for (let col = 0; col < maxYLength; col++) {
       const columnData = data.map(d => {
         return `${scaleX({ x: d.x, y: d.y[col] })},${scaleY({ x: d.x, y: d.y[col] })}`;
       }).join(' L ');
@@ -140,15 +139,11 @@ const LineChart: React.FC<LineChartProps> = ({
       r.push(
         `M${scaleX({ x: data[0].x, y: data[0].y[col] })},${chartTotalHeight - margin.bottom} L ${columnData} L${scaleX({ x: data[data.length - 1].x, y: data[data.length - 1].y[col] })},${chartTotalHeight - margin.bottom} Z`
       );
-    });
+    }
   
     return r;
   }, [data, scaleX, scaleY, chartTotalHeight, margin]);
-  
-
-  // Calculate the available width and the maximum number of tickers that can fit with at least a 10px distance
-  const tickInterval = chartArealWidth / data.length;
-  
+    
   // Create the tickers based on the calculated interval
   const minTickerDistanceX = DEFAULT_TICKER_DISTANCE;
   const minTickerDistanceY = DEFAULT_TICKER_DISTANCE;
@@ -184,8 +179,6 @@ const LineChart: React.FC<LineChartProps> = ({
       }
       return tickers;
     }, [mergedYSorted, scaleY, yTransformer, chartTotalHeight, minTickerDistanceY]);
-    
-    const recentColors = new Set<string>();
 
   return (
     <div ref={childRef}>

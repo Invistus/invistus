@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts';
-import { Strategy, StrategyOutput, StrategyPeriod } from './RealEstateBenchmark';
+import { StrategyOutput, StrategyPeriod } from './RealEstateBenchmark';
 import { formatCurrency } from 'utils/stringUtils';
 import useTranslation from 'language/useTranslation';
 
@@ -59,7 +59,7 @@ const RealEstateBenchmarkChart: React.FC<Props> = ({ strategyData }) => {
     return () => {
       window.removeEventListener('resize', sizeChart);
     };
-  }, []);
+  }, [sizeChart]);
 
   return (
     <div className="real-estate-benchmark-chart" ref={childRef}>
