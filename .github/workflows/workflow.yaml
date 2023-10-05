@@ -46,18 +46,26 @@ jobs:
           role-session-name: github-action-session
           aws-region: ${{ secrets.AWS_REGION }}
 
-      - name: Create or Ignore S3 Bucket
+      - name: Check if bucket exists
+        id: check-bucket
         run: |
-          if ! aws s3api head-bucket --bucket $BUCKET_NAME-dev 2>&1; then
-            aws s3api create-bucket --bucket $BUCKET_NAME-dev --region ${{ secrets.AWS_REGION }}
+          if aws s3api head-bucket --bucket "$BUCKET_NAME-dev"; then
+            echo "::set-output name=bucketExists::true"
           else
-            echo "Bucket already exists, skipping creation."
+            echo "::set-output name=bucketExists::false"
           fi
+        continue-on-error: true
+
+      # Create bucket for web application 
+      - name: Create bucket
+        if: steps.check-bucket.outputs.bucketExists == 'false'
+        run: |
+          aws s3api create-bucket --bucket $BUCKET_NAME-dev --region ${{ secrets.AWS_REGION }}
 
       # Tag S3 bucket for web application 
       - name: Tag S3 Bucket
         run: |
-          aws s3api put-bucket-tagging --bucket $BUCKET_NAME-dev --tagging 'TagSet=[{Key=Application,Value=Invistus},{Key=Component,Value=web},{Key=Environment,Value=Test}]'
+          aws s3api put-bucket-tagging --bucket $BUCKET_NAME-dev --tagging 'TagSet=[{Key=Application,Value=Invistus},{Key=Component,Value=Web},{Key=Environment,Value=dev}]'
 
       # Deploy web pkg to S3 bucket
       - name: Deploy to S3 bucket
