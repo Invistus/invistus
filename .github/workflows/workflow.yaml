@@ -32,13 +32,10 @@ jobs:
           npm ci
           npm run build
 
-  # deploy_dev:
-  # deploy_staging:
-
-
-  deploy_production:
+  deploy_dev:
     needs: build
     runs-on: ubuntu-latest
+    environment: development
     steps:
       # AWS Login with OIDC
       - name: configure aws credentials
