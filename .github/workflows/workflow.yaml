@@ -50,20 +50,11 @@ jobs:
         id: check-bucket
         run: |
           if aws s3api head-bucket --bucket "$BUCKET_NAME-dev"; then
-            echo "bucketExists=true" >>$GITHUB_OUTPUT
+            echo "Bucket exists already"
           else
-            echo "bucketExists=false" >>$GITHUB_OUTPUT
+            aws s3api create-bucket --bucket $BUCKET_NAME-dev --region ${{ secrets.AWS_REGION }} --create-bucket-configuration LocationConstraint=${{ secrets.AWS_REGION }}
           fi
         continue-on-error: true
-
-      # Create bucket for web application 
-      - name: Create bucket
-        run: |
-          if [ "$bucketExists" == "false" ]; then
-            aws s3api create-bucket --bucket $BUCKET_NAME-dev --region ${{ secrets.AWS_REGION }} --create-bucket-configuration LocationConstraint=${{ secrets.AWS_REGION }}
-          else
-            echo "Bucket exists already"
-          fi
 
       # Tag S3 bucket for web application 
       - name: Tag S3 Bucket
@@ -71,8 +62,8 @@ jobs:
           aws s3api put-bucket-tagging --bucket $BUCKET_NAME-dev --tagging 'TagSet=[{Key=Application,Value=Invistus},{Key=Component,Value=Web},{Key=Environment,Value=dev}]'
 
       # Deploy web pkg to S3 bucket
-      - name: Deploy to S3 bucket
-        working-directory: ./web
-        run: aws s3 sync ./build/ s3://$BUCKET_NAME-dev --delete
+      # - name: Deploy to S3 bucket
+      #   working-directory: ./web
+      #   run: aws s3 sync ./build/ s3://$BUCKET_NAME-dev --delete
 
 
