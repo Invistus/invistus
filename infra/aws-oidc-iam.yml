@@ -46,6 +46,7 @@ Resources:
                 token.actions.githubusercontent.com:sub:
                   - 'repo:Invistus/invistus:ref:refs/heads/develop'
                   - 'repo:Invistus/invistus:ref:refs/heads/release'
+                  - 'repo:Invistus/invistus:ref:refs/heads/2-chore-create-cicd-with-github-actions'
       ManagedPolicyArns:
         - !Ref InvistusWorkflowDeployPolicy
   
