@@ -12,7 +12,7 @@ on:
       - 'releases/**'
 
 env:
-  BUCKET_NAME: invistus-web-prod
+  BUCKET_NAME: invistus-web-dev
 
 jobs:
   build:
@@ -35,16 +35,16 @@ jobs:
   deploy_dev:
     needs: build
     runs-on: ubuntu-latest
-    environment: development
+    environment: dev
     steps:
 
       # AWS Login with OIDC
       - name: configure aws credentials
         uses: aws-actions/configure-aws-credentials@v3
         with:
-          role-to-assume: arn:aws:iam::993377844237:role/invistus-oidc-dev-role
+          role-to-assume: ${{ secrets.AWS_OIDC_ROLE }}
           role-session-name: github-action-session
-          aws-region: sa-east-1
+          aws-region: ${{ secrets.AWS_REGION }}
 
       # - name: Create or Ignore S3 Bucket
       #   run: |
