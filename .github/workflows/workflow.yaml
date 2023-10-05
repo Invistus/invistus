@@ -60,7 +60,7 @@ jobs:
       - name: Create bucket
         if: steps.check-bucket.outputs.bucketExists == 'false'
         run: |
-          aws s3api create-bucket --bucket $BUCKET_NAME-dev --region ${{ secrets.AWS_REGION }}
+          aws s3api create-bucket --bucket $BUCKET_NAME-dev --region ${{ secrets.AWS_REGION }} --create-bucket-configuration LocationConstraint=${{ secrets.AWS_REGION }}
 
       # Tag S3 bucket for web application 
       - name: Tag S3 Bucket
