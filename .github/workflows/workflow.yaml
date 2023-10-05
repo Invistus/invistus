@@ -50,17 +50,20 @@ jobs:
         id: check-bucket
         run: |
           if aws s3api head-bucket --bucket "$BUCKET_NAME-dev"; then
-            echo "::set-output name=bucketExists::true"
+            echo "bucketExists=true" >>$GITHUB_OUTPUT
           else
-            echo "::set-output name=bucketExists::false"
+            echo "bucketExists=false" >>$GITHUB_OUTPUT
           fi
         continue-on-error: true
 
       # Create bucket for web application 
       - name: Create bucket
-        if: steps.check-bucket.outputs.bucketExists == 'false'
         run: |
-          aws s3api create-bucket --bucket $BUCKET_NAME-dev --region ${{ secrets.AWS_REGION }} --create-bucket-configuration LocationConstraint=${{ secrets.AWS_REGION }}
+          if [ "$bucketExists" == "false" ]; then
+            aws s3api create-bucket --bucket $BUCKET_NAME-dev --region ${{ secrets.AWS_REGION }} --create-bucket-configuration LocationConstraint=${{ secrets.AWS_REGION }}
+          else
+            echo "Bucket exists already"
+          fi
 
       # Tag S3 bucket for web application 
       - name: Tag S3 Bucket
