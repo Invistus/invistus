@@ -30,4 +30,4 @@ if [ $? -ne 0 ]; then
     error_exit "Error deploying CloudFormation stack. Exiting."
 fi
 
-echo "CloudFormation stack deployed successfully"
+echo "CloudFormation stack deployed successfully!"
