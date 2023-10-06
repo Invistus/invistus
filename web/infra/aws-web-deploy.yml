@@ -43,6 +43,7 @@ Resources:
     Type: AWS::CloudFront::Distribution
     DependsOn:
       - InvistusWebS3Bucket
+      - CloudFrontOriginAccessControl
     Properties:
       DistributionConfig:
         Origins:
