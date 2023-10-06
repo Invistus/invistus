@@ -68,6 +68,7 @@ jobs:
       - name: Setup Infrastructe on AWS
         working-directory: ./infra/
         run: |
+          cat aws-web-deploy.sh
           ./aws-web-deploy.sh dev
 
       # Deploy web pkg to S3 bucket
