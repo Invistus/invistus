@@ -35,10 +35,9 @@ jobs:
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v2
-        working-directory: ./web
         with:
           name: build-artifact
-          path: build/ 
+          path: web/build/ 
 
   deploy_dev:
     needs: build
