@@ -10,6 +10,8 @@ on:
       - 2-chore-create-cicd-with-github-actions
       - develop
       - 'releases/**'
+    paths:
+      - 'web/**'
 
 env:
   BUCKET_NAME: invistus-web
@@ -37,7 +39,9 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: build-artifact
-          path: web/build/ 
+          path: |
+            web/build/**
+            infra/**
 
   deploy_dev:
     needs: build
@@ -53,30 +57,20 @@ jobs:
           role-session-name: github-action-session
           aws-region: ${{ secrets.AWS_REGION }}
 
-      # Create bucket
-      - name: Create bucket if it doesn't exist
-        id: check-bucket
-        continue-on-error: true
-        run: |
-          aws s3api head-bucket --bucket "$BUCKET_NAME-dev" >/dev/null 2>&1
-          if [[ ${?} -eq 0 ]]; then
-            echo "Bucket exists already"
-          else
-            aws s3api create-bucket --bucket $BUCKET_NAME-dev --region ${{ secrets.AWS_REGION }} --create-bucket-configuration LocationConstraint=${{ secrets.AWS_REGION }}
-          fi
-
-      # Tag S3 bucket for web application 
-      - name: Tag S3 Bucket
-        run: |
-          aws s3api put-bucket-tagging --bucket $BUCKET_NAME-dev --tagging 'TagSet=[{Key=Application,Value=Invistus},{Key=Component,Value=Web},{Key=Environment,Value=dev}]'
-
       - name: Download build artifacts
         uses: actions/download-artifact@v3
         with:
           name: build-artifact
 
+      # AWS Cloudformation
+      - name: Setup Infrastructe on AWS
+        working-directory: ./infra/
+        run: |
+          ./aws-web-deploy.sh dev
+
       # Deploy web pkg to S3 bucket
       - name: Deploy to S3 bucket
+        working-directory: ./web/build/
         run: |
           aws s3 sync . s3://$BUCKET_NAME-dev --delete
 

@@ -9,8 +9,8 @@ ENVIRONMENT=$1
 
 IAM_CFN_FILE="aws-oidc-iam.yml"
 STACK_NAME="invistus-iam-oidc-$ENVIRONMENT"
-APPLICATION_NAME="Invistus"
-COMPONENT="IAM"
+APPLICATION_NAME="invistus"
+COMPONENT="iam"
 
 PARAMS=(
   ParameterKey="Environment",ParameterValue="${ENVIRONMENT}"
