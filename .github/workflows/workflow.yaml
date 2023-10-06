@@ -49,7 +49,7 @@ jobs:
       - name: Check if bucket exists
         id: check-bucket
         run: |
-          if aws s3api head-bucket --bucket "$BUCKET_NAME-dev"; then
+          if aws s3api head-bucket --bucket "$BUCKET_NAME-dev" || true; then
             echo "Bucket exists already"
           else
             aws s3api create-bucket --bucket $BUCKET_NAME-dev --region ${{ secrets.AWS_REGION }} --create-bucket-configuration LocationConstraint=${{ secrets.AWS_REGION }}
