@@ -57,12 +57,13 @@ jobs:
           role-session-name: github-action-session
           aws-region: ${{ secrets.AWS_REGION }}
 
-      - name: Download build artifacts
+      #  Download artifacts to deploy
+      - name: Download artifacts to deploy
         uses: actions/download-artifact@v3
         with:
           name: build-artifact
 
-      # AWS Cloudformation
+      # Run IaC (AWS Cloudformation)
       - name: Setup Infrastructe on AWS
         working-directory: ./infra/
         run: |
