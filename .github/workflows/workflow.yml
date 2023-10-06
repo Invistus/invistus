@@ -34,7 +34,7 @@ jobs:
           npm run build
 
       - name: Upload build artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: build-artifact
           path: web/build/ 
@@ -53,7 +53,8 @@ jobs:
           role-session-name: github-action-session
           aws-region: ${{ secrets.AWS_REGION }}
 
-      - name: Check if bucket exists
+      # Create bucket
+      - name: Create bucket if it doesn't exist
         id: check-bucket
         run: |
           if aws s3 ls | grep -q "$BUCKET_NAME-dev"; then
@@ -68,7 +69,7 @@ jobs:
           aws s3api put-bucket-tagging --bucket $BUCKET_NAME-dev --tagging 'TagSet=[{Key=Application,Value=Invistus},{Key=Component,Value=Web},{Key=Environment,Value=dev}]'
 
       - name: Download build artifacts
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: build-artifact
 
