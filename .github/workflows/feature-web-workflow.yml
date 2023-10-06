@@ -11,7 +11,7 @@ on:
       - develop
       - 'releases/**'
     paths:
-      - 'web/**'
+      - web/**
 
 env:
   BUCKET_NAME: invistus-web
@@ -41,7 +41,7 @@ jobs:
           name: build-artifact
           path: |
             web/build/**
-            infra/**
+            web/infra/**
 
   deploy_dev:
     needs: build
@@ -65,7 +65,7 @@ jobs:
 
       # Run IaC (AWS Cloudformation)
       - name: Setup Infrastructe on AWS
-        working-directory: ./infra/
+        working-directory: ./web/infra/
         run: |
           ./aws-web-deploy.sh dev
 
