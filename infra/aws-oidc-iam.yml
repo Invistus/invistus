@@ -63,9 +63,9 @@ Resources:
               - !Sub 'arn:aws:cloudfront:*:${AWS::AccountId}:distribution/invistus-web-*${Environment}'
           - Effect: Allow
             Action:
-              - cloudfront:CreateOriginAccessControl
-              - cloudfront:DeleteOriginAccessControl
-              - cloudfront:UpdateOriginAccessControl
+              - cloudfront:*
+              # - cloudfront:DeleteOriginAccessControl
+              # - cloudfront:UpdateOriginAccessControl
             Resource: '*'
           - Effect: Allow
             Action:
