@@ -56,8 +56,11 @@ jobs:
       # Create bucket
       - name: Create bucket if it doesn't exist
         id: check-bucket
+        continue-on-error: true
         run: |
-          if aws s3 ls | grep -q "$BUCKET_NAME-dev"; then
+          aws s3api head-bucket --bucket "$BUCKET_NAME-dev" >/dev/null 2>&1
+
+          if [[ ${?} -eq 0 ]]; then
             echo "Bucket exists already"
           else
             aws s3api create-bucket --bucket $BUCKET_NAME-dev --region ${{ secrets.AWS_REGION }} --create-bucket-configuration LocationConstraint=${{ secrets.AWS_REGION }}
