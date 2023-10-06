@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 # Function to print error message and exit
 error_exit() {
     echo "$1" >&2  # Redirect message to stderr
@@ -31,4 +30,4 @@ if [ $? -ne 0 ]; then
     error_exit "Error deploying CloudFormation stack. Exiting."
 fi
 
-echo "CloudFormation stack deployed successfully!"
+echo "CloudFormation stack deployed successfully"
