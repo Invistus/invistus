@@ -56,12 +56,11 @@ jobs:
       - name: Check if bucket exists
         id: check-bucket
         run: |
-          if aws s3api head-bucket --bucket "$BUCKET_NAME-dev"; then
+          if aws s3 ls | grep -q "$BUCKET_NAME-dev"; then
             echo "Bucket exists already"
           else
             aws s3api create-bucket --bucket $BUCKET_NAME-dev --region ${{ secrets.AWS_REGION }} --create-bucket-configuration LocationConstraint=${{ secrets.AWS_REGION }}
           fi
-        continue-on-error: true
 
       # Tag S3 bucket for web application 
       - name: Tag S3 Bucket
@@ -76,6 +75,6 @@ jobs:
       # Deploy web pkg to S3 bucket
       - name: Deploy to S3 bucket
         run: |
-          aws s3 sync ./build/ s3://$BUCKET_NAME-dev --delete
+          aws s3 sync . s3://$BUCKET_NAME-dev --delete
 
 
