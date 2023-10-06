@@ -65,13 +65,13 @@ jobs:
 
       # Run IaC (AWS Cloudformation)
       - name: Setup Infrastructe on AWS
-        working-directory: ./web/infra/
+        working-directory: ./infra/
         run: |
           ./aws-web-deploy.sh dev
 
       # Deploy web pkg to S3 bucket
       - name: Deploy to S3 bucket
-        working-directory: ./web/build/
+        working-directory: ./build/
         run: |
           aws s3 sync . s3://$BUCKET_NAME-dev --delete
 
