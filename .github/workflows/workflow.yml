@@ -15,6 +15,7 @@ env:
   BUCKET_NAME: invistus-web
 
 jobs:
+
   build:
     runs-on: ubuntu-latest
     steps:
@@ -31,6 +32,13 @@ jobs:
         run: |
           npm ci
           npm run build
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v2
+        working-directory: ./web
+        with:
+          name: build-artifact
+          path: build/ 
 
   deploy_dev:
     needs: build
@@ -60,6 +68,11 @@ jobs:
       - name: Tag S3 Bucket
         run: |
           aws s3api put-bucket-tagging --bucket $BUCKET_NAME-dev --tagging 'TagSet=[{Key=Application,Value=Invistus},{Key=Component,Value=Web},{Key=Environment,Value=dev}]'
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: build-artifact
 
       # Deploy web pkg to S3 bucket
       - name: Deploy to S3 bucket
