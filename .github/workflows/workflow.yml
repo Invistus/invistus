@@ -62,8 +62,9 @@ jobs:
           aws s3api put-bucket-tagging --bucket $BUCKET_NAME-dev --tagging 'TagSet=[{Key=Application,Value=Invistus},{Key=Component,Value=Web},{Key=Environment,Value=dev}]'
 
       # Deploy web pkg to S3 bucket
-      # - name: Deploy to S3 bucket
-      #   working-directory: ./web
-      #   run: aws s3 sync ./build/ s3://$BUCKET_NAME-dev --delete
+      - name: Deploy to S3 bucket
+        working-directory: ./web
+        run: |
+          aws s3 sync ./build/ s3://$BUCKET_NAME-dev --delete
 
 
