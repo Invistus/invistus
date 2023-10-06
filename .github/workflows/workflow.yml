@@ -75,7 +75,6 @@ jobs:
 
       # Deploy web pkg to S3 bucket
       - name: Deploy to S3 bucket
-        working-directory: ./web
         run: |
           aws s3 sync ./build/ s3://$BUCKET_NAME-dev --delete
 
