@@ -12,6 +12,7 @@ on:
       - 'releases/**'
     paths:
       - web/**
+      - .github/workflows/feature-web-workflow.yml
 
 env:
   BUCKET_NAME: invistus-web
