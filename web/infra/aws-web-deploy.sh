@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 # Function to print error message and exit
 error_exit() {
     echo "$1" >&2  # Redirect message to stderr
