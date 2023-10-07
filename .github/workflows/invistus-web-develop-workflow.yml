@@ -51,7 +51,7 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
-    environment: ${{ env.ENVIRONMENT }}
+    environment: dev # there's an that doesn't allow me to use ${{ env.ENVIRONMENT}} see https://github.com/actions/runner/issues/2372
     steps:
 
       # AWS Login with OIDC
