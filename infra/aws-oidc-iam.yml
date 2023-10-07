@@ -55,17 +55,17 @@ Resources:
               - cloudfront:UpdateDistribution
               - cloudfront:GetDistribution
               - cloudfront:ListDistributions
-              - cloudfront:CreateOriginAccessIdentity
-              - cloudfront:DeleteOriginAccessIdentity
-              - cloudfront:GetOriginAccessIdentity
-              - cloudfront:ListOriginAccessIdentities
+              - cloudfront:TagResource
             Resource: 
-              - !Sub 'arn:aws:cloudfront:*:${AWS::AccountId}:distribution/invistus-web-*${Environment}'
+              - !Sub 'arn:aws:cloudfront:*:${AWS::AccountId}:distribution/*'
           - Effect: Allow
             Action:
-              - cloudfront:*
-              # - cloudfront:DeleteOriginAccessControl
-              # - cloudfront:UpdateOriginAccessControl
+              - cloudfront:CreateOriginAccessControl
+              - cloudfront:UpdateOriginAccessControl
+              - cloudfront:DeleteOriginAccessControl
+              - cloudfront:ListOriginAccessControls
+              - cloudfront:GetOriginAccessControl
+              - cloudfront:GetOriginAccessControlConfig
             Resource: '*'
           - Effect: Allow
             Action:

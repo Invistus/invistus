@@ -1,0 +1,82 @@
+name: Deploy Web Application
+
+permissions:
+  id-token: write # This is required for requesting the JWT
+  contents: read  # This is required for actions/checkout
+
+on:
+  push:
+    branches:
+      - 'main'
+    paths:
+      - web/**
+      - .github/workflows/*-web-workflow.yml
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+  
+env:
+  BUCKET_NAME: invistus-web
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Git clone the repository
+        uses: actions/checkout@v4
+      
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18.x'
+
+      - name: Install and Build
+        working-directory: ./web
+        run: |
+          npm ci
+          npm run build
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-artifact
+          path: |
+            web/build/**
+            web/infra/**
+
+  deploy_dev:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: dev
+    steps:
+
+      # AWS Login with OIDC
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          role-to-assume: ${{ secrets.AWS_OIDC_ROLE }}
+          role-session-name: github-action-session
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      #  Download artifacts to deploy
+      - name: Download artifacts to deploy
+        uses: actions/download-artifact@v3
+        with:
+          name: build-artifact
+
+      # Run IaC (AWS Cloudformation)
+      - name: Setup Infrastructe on AWS
+        working-directory: ./infra/
+        run: |
+          chmod +x aws-web-deploy.sh
+          ./aws-web-deploy.sh dev
+
+      # Deploy web pkg to S3 bucket
+      - name: Deploy to S3 bucket
+        working-directory: ./build/
+        run: |
+          aws s3 sync . s3://$BUCKET_NAME-dev --delete
+
+

@@ -7,15 +7,19 @@ permissions:
 on:
   push:
     branches:
-      - 2-chore-create-cicd-with-github-actions
+      - 2-chore-create-cicd-with-github-actions # TODO remove it. Just for test.
       - develop
-      - 'releases/**'
     paths:
       - web/**
-      - .github/workflows/feature-web-workflow.yml
+      - .github/workflows/*-web-workflow.yml
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+  
 env:
   BUCKET_NAME: invistus-web
+  ENVIRONMENT: dev
 
 jobs:
 
@@ -44,10 +48,10 @@ jobs:
             web/build/**
             web/infra/**
 
-  deploy_dev:
+  deploy:
     needs: build
     runs-on: ubuntu-latest
-    environment: dev
+    environment: $ENVIRONMENT
     steps:
 
       # AWS Login with OIDC
@@ -69,12 +73,12 @@ jobs:
         working-directory: ./infra/
         run: |
           chmod +x aws-web-deploy.sh
-          ./aws-web-deploy.sh dev
+          ./aws-web-deploy.sh $ENVIRONMENT
 
       # Deploy web pkg to S3 bucket
       - name: Deploy to S3 bucket
         working-directory: ./build/
         run: |
-          aws s3 sync . s3://$BUCKET_NAME-dev --delete
+          aws s3 sync . s3://$BUCKET_NAME-$ENVIRONMENT --delete
 
 
