@@ -11,7 +11,7 @@ on:
       - develop
     paths:
       - web/**
-      - .github/workflows/*-web-workflow.yml
+      - .github/workflows/invistus-web-*-workflow.yml
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
