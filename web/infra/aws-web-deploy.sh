@@ -7,12 +7,22 @@ error_exit() {
 }
 
 # Check if an argument has been provided
-if [ "$#" -ne 1 ]; then
-    error_exit "Usage: $0 <Environment>"
+if [ "$#" -ne 3 ]; then
+    error_exit "Usage: $0 <Environment> <Domain Alias> <ACM Certificate ARN>"
 fi
 
 # Define args
 ENVIRONMENT="$1"
+DOMAIN_ALIAS="$2"
+CERTIFICATE_ARN="$3"
+
+PARAMS=(
+  Environment="${ENVIRONMENT}"
+  DomainAlias="${DOMAIN_ALIAS}"
+  ACMCertificateARN="${CERTIFICATE_ARN}"
+)
+
+echo "Params: ${PARAMS[@]}"
 
 # Define constants
 TEMPLATE_PATH="./aws-web-deploy.yml"
@@ -22,7 +32,7 @@ STACK_NAME="invistus-web-$ENVIRONMENT"
 aws cloudformation deploy \
   --template-file "$TEMPLATE_PATH" \
   --stack-name "$STACK_NAME" \
-  --parameter-overrides Environment=$ENVIRONMENT \
+  --parameter-overrides "${PARAMS[@]}" \
   --capabilities CAPABILITY_IAM
 
 # Check the command's exit status and handle errors

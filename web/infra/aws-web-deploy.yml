@@ -13,6 +13,12 @@ Parameters:
   Environment:
     Description: The environment for this bucket.
     Type: String
+  DomainAlias:
+    Description: "Domain alias name (i.e.: dev.example.com)."
+    Type: String
+  ACMCertificateARN:
+    Description: ARN of Domain certificate
+    Type: String
 
 Resources:
 
@@ -78,6 +84,12 @@ Resources:
             Cookies:
               Forward: none
           ViewerProtocolPolicy: redirect-to-https
+        Aliases:
+          - !Ref DomainAlias
+        ViewerCertificate:
+          AcmCertificateArn: !Ref ACMCertificateARN
+          SslSupportMethod: sni-only
+          MinimumProtocolVersion: TLSv1.2_2019
       Tags:
         - Key: Application
           Value: !Ref ApplicationName

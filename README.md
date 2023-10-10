@@ -47,3 +47,12 @@ The Github Identity provider must be set up and the Role `GithubOIDCRole` has to
 ```
 
 See more at https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/configuring-openid-connect-in-amazon-web-services
+
+
+### Create the Certificate
+
+```shell
+./aws-certificate.sh invistus.com.br
+```
+
+The SSL validation must be configured on domain provider.

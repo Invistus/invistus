@@ -73,7 +73,7 @@ jobs:
         working-directory: ./infra/
         run: |
           chmod +x aws-web-deploy.sh
-          ./aws-web-deploy.sh $ENVIRONMENT
+          ./aws-web-deploy.sh $ENVIRONMENT ${{ variables.DOMAIN }} ${{ secrets.AWS_CERTIFICATE_ARN }}
 
       # Deploy web pkg to S3 bucket
       - name: Deploy to S3 bucket
