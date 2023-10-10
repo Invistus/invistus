@@ -31,7 +31,7 @@ jobs:
 
 
   deploy:
-    needs: build
+    needs: build_web
     runs-on: ubuntu-latest
     environment: dev # there's an that doesn't allow me to use ${{ env.ENVIRONMENT}} see https://github.com/actions/runner/issues/2372
     steps:
