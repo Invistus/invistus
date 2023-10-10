@@ -13,7 +13,7 @@ APPLICATION_NAME="invistus"
 COMPONENT="iam"
 
 PARAMS=(
-  ParameterKey="Environment",ParameterValue="${ENVIRONMENT}"
+  Environment="${ENVIRONMENT}"
 )
 
 echo "Creating CFN Stack '$STACK_NAME' for environment '$ENVIRONMENT' based on file '$IAM_CFN_FILE'"

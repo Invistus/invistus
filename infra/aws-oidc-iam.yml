@@ -7,7 +7,6 @@ Parameters:
   Environment:
     Type: String
     Description: Which environment will be deploy
-    Default: dev
 
 Resources:
 

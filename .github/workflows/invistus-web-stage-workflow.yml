@@ -7,10 +7,10 @@ permissions:
 on:
   push:
     branches:
-      - 'releases/**'
+      - release/*
     paths:
       - web/**
-      - .github/workflows/*-web-workflow.yml
+      - .github/workflows/invistus-web-*-workflow.yml
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -18,51 +18,30 @@ concurrency:
 
 env:
   BUCKET_NAME: invistus-web
+  ENVIRONMENT: stage
 
 jobs:
-
-  tag_release:
-    runs-on: ubuntu-latest
-    outputs:
-      tag: ${{ steps.tag_release.outputs.tag }}
-    steps:
-      - name: Extract branch tag
-        id: tag
-        run: |
-          BRANCH=${{ github.head_ref }}
-          TAG="${BRANCH//release-/""}"
-          echo $TAG
-          echo "tag=$TAG" >> $GITHUB_OUTPUT
 
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Git clone the repository
-        uses: actions/checkout@v4
-      
-      - name: Use Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18.x'
+    - name: Extract branch name
+      run: echo "VERSION=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
 
-      - name: Install and Build
-        working-directory: ./web
-        run: |
-          npm ci
-          npm run build
+    - name: Print Version
+      run: echo "Deploying version ${{ env.VERSION }}"
 
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: build-artifact
-          path: |
-            web/build/**
-            web/infra/**
+  build_web:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Git clone the repository
+      uses: actions/checkout@v4
 
-  release:
-    needs:
-      - tag 
-      - build
+    - name: Build Web App
+      uses: ./.github/actions/build-web
+
+  deploy:
+    needs: build_web
     runs-on: ubuntu-latest
     environment: stage
     steps:
@@ -86,14 +65,11 @@ jobs:
         working-directory: ./infra/
         run: |
           chmod +x aws-web-deploy.sh
-          ./aws-web-deploy.sh dev
+          ./aws-web-deploy.sh $ENVIRONMENT ${{ vars.DOMAIN }} ${{ secrets.AWS_CERTIFICATE_ARN }}
 
       # Deploy web pkg to S3 bucket
       - name: Deploy to S3 bucket
         working-directory: ./build/
         run: |
-          aws s3 sync . s3://$BUCKET_NAME-dev --delete
-
-      # TODO create Github Release
-
+          aws s3 sync . s3://$BUCKET_NAME-$ENVIRONMENT --delete
 

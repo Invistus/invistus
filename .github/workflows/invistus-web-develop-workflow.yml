@@ -28,10 +28,9 @@ jobs:
     steps:
     - name: Git clone the repository
       uses: actions/checkout@v4
-      
+
     - name: Build Web App
       uses: ./.github/actions/build-web
-
 
   deploy:
     needs: build_web
