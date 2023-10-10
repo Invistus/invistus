@@ -24,10 +24,12 @@ env:
 jobs:
 
   build_web:
+    runs-on: ubuntu-latest
+    steps:
     - name: Build Web App
       uses: ./.github/actions/build-web
 
-      
+
   deploy:
     needs: build
     runs-on: ubuntu-latest
