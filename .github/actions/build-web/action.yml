@@ -2,10 +2,7 @@ name: 'Build Web Application'
 description: 'Checkout, setup Node.js, install, build, and upload artifacts'
 runs:
   using: "composite"
-  steps:
-    - name: Git clone the repository
-      uses: actions/checkout@v4
-      
+  steps:      
     - name: Use Node.js
       uses: actions/setup-node@v3
       with:
