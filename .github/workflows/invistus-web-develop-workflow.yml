@@ -26,6 +26,9 @@ jobs:
   build_web:
     runs-on: ubuntu-latest
     steps:
+    - name: Git clone the repository
+      uses: actions/checkout@v4
+      
     - name: Build Web App
       uses: ./.github/actions/build-web
 
