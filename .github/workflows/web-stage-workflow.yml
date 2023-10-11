@@ -10,65 +10,37 @@ on:
       - release-test/*
     paths:
       - web/**
-      - .github/workflows/invistus-web-*-workflow.yml
+      - .github/actions/**-web
+      - .github/workflows/web-stage-workflow.yml
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-env:
-  BUCKET_NAME: invistus-web
-  ENVIRONMENT: stage
 
 jobs:
 
-  build:
+  build_and_deploy_web:
     runs-on: ubuntu-latest
+    environment: stage 
     steps:
-    - name: Extract branch name
-      run: echo "VERSION=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
 
-    - name: Print Version
-      run: echo "Deploying version ${{ env.VERSION }}"
-
-  build_web:
-    runs-on: ubuntu-latest
-    steps:
+    #checkout code
     - name: Git clone the repository
       uses: actions/checkout@v4
 
+    # Build web application
     - name: Build Web App
       uses: ./.github/actions/build-web
 
-  deploy:
-    needs: build_web
-    runs-on: ubuntu-latest
-    environment: stage
-    steps:
+    # Deploy package on AWS
+    - name: Deploy on AWS
+      uses: ./.github/actions/deploy-web
+      with:
+        environment: dev
+        bucketNamePrefix: invistus-web
+        roleToAssume: ${{ secrets.AWS_OIDC_ROLE }}
+        awsRegion: ${{ secrets.AWS_REGION }}
+        awsCertificateARN: ${{ secrets.AWS_CERTIFICATE_ARN }}
+        domainName: ${{ vars.DOMAIN_NAME }}
 
-      # AWS Login with OIDC
-      - name: configure aws credentials
-        uses: aws-actions/configure-aws-credentials@v3
-        with:
-          role-to-assume: ${{ secrets.AWS_OIDC_ROLE }}
-          role-session-name: github-action-session
-          aws-region: ${{ secrets.AWS_REGION }}
-
-      #  Download artifacts to deploy
-      - name: Download artifacts to deploy
-        uses: actions/download-artifact@v3
-        with:
-          name: build-artifact
-
-      # Run IaC (AWS Cloudformation)
-      - name: Setup Infrastructe on AWS
-        working-directory: ./infra/
-        run: |
-          chmod +x aws-web-deploy.sh
-          ./aws-web-deploy.sh $ENVIRONMENT ${{ vars.DOMAIN }} ${{ secrets.AWS_CERTIFICATE_ARN }}
-
-      # Deploy web pkg to S3 bucket
-      - name: Deploy to S3 bucket
-        working-directory: ./build/
-        run: |
-          aws s3 sync . s3://$BUCKET_NAME-$ENVIRONMENT --delete

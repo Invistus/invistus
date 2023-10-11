@@ -10,6 +10,7 @@ on:
       - 'release-test/*'
     paths:
       - web/**
+      - .github/actions/**-web
       - .github/workflows/web-release-workflow.yml
 
 concurrency:

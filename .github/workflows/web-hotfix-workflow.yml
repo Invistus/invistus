@@ -10,7 +10,8 @@ on:
       - release-test/*
     paths:
       - web/**
-      - .github/workflows/invistus-web-*-workflow.yml
+      - .github/actions/**-web
+      - .github/workflows/web-hotfix-workflow.yml
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
