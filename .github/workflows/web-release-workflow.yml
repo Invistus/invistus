@@ -1,4 +1,4 @@
-name: Staging Deployment
+name: Deploy Web Application on Stage
 
 permissions:
   id-token: write # This is required for requesting the JWT
@@ -7,7 +7,9 @@ permissions:
 on:
   push:
     branches:
-      - 'release-test/*'
+      - main
+    tag:
+      - v*.*.*  # Assuming semantic versioning for tags, e.g., v1.0.0
     paths:
       - web/**
       - .github/actions/**-web
@@ -16,13 +18,13 @@ on:
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
-  
+
 
 jobs:
 
   build_and_deploy_web:
     runs-on: ubuntu-latest
-    environment: stage 
+    environment: prod 
     steps:
 
     #checkout code
@@ -37,11 +39,9 @@ jobs:
     - name: Deploy on AWS
       uses: ./.github/actions/deploy-web
       with:
-        environment: stage
+        environment: prod
         bucketNamePrefix: invistus-web
         roleToAssume: ${{ secrets.AWS_OIDC_ROLE }}
         awsRegion: ${{ secrets.AWS_REGION }}
         awsCertificateARN: ${{ secrets.AWS_CERTIFICATE_ARN }}
         domainName: ${{ vars.DOMAIN_NAME }}
-
-

@@ -7,7 +7,7 @@ permissions:
 on:
   push:
     branches:
-      - release-test/*
+      - release/v*
     paths:
       - web/**
       - .github/actions/**-web
@@ -43,4 +43,3 @@ jobs:
         awsRegion: ${{ secrets.AWS_REGION }}
         awsCertificateARN: ${{ secrets.AWS_CERTIFICATE_ARN }}
         domainName: ${{ vars.DOMAIN_NAME }}
-
