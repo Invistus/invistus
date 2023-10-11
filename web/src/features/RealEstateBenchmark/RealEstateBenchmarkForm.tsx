@@ -49,7 +49,7 @@ interface FormProps {
 const RealEstateBenchmarkForm: React.FC<FormProps> = ({ onSubmit }) => {
   const { t } = useTranslation();
 
-  const { control, handleSubmit, setValue, formState: { errors } } = useForm<RealEstateBenchmarkInputValues, any, RealEstateStrategyInput>({
+  const { control, handleSubmit, formState: { errors } } = useForm<RealEstateBenchmarkInputValues, any, RealEstateStrategyInput>({
     defaultValues: defaultValues,
     resolver: async (inputValues: RealEstateBenchmarkInputValues) => {
 

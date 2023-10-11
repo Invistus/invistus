@@ -1,0 +1,97 @@
+AWSTemplateFormatVersion: 2010-09-09
+
+Description:
+  IAM Roles and Policies for CI/CD workflow, based on Github Actions
+
+Parameters:
+  Environment:
+    Type: String
+    Description: Which environment will be deploy
+
+Resources:
+
+  InvistusWorkflowDeployPolicy:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      ManagedPolicyName: !Sub "invistus-web-deploy-${Environment}"
+      Description: !Sub "Policy for deploying web component on ${Environment}"
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action:
+              - cloudformation:CreateChangeSet
+              - cloudformation:DescribeChangeSet
+              - cloudformation:ExecuteChangeSet
+              - cloudformation:DescribeStacks
+              - cloudformation:CreateStack
+              - cloudformation:DeleteStack
+              - cloudformation:UpdateStack
+              - cloudformation:ValidateTemplate
+              - cloudformation:GetTemplateSummary
+            Resource: !Sub 'arn:aws:cloudformation:*:${AWS::AccountId}:stack/invistus-web-*${Environment}/*'
+          - Effect: Allow
+            Action: s3:CreateBucket
+            Resource: !Sub 'arn:aws:s3:::invistus-*${Environment}'
+          - Effect: Allow
+            Action:
+              - s3:CreateBucket
+              - s3:DeleteBucket
+              - s3:PutBucketPolicy
+              - s3:GetBucketPolicy
+              - s3:ListBucket
+              - s3:PutObject
+              - s3:GetObject
+              - s3:DeleteObject
+              - s3:PutBucketTagging
+            Resource: 
+              - !Sub 'arn:aws:s3:::invistus-web-*${Environment}/*'
+              - !Sub 'arn:aws:s3:::invistus-web-*${Environment}'
+          - Effect: Allow
+            Action:
+              - cloudfront:CreateDistribution
+              - cloudfront:DeleteDistribution
+              - cloudfront:UpdateDistribution
+              - cloudfront:GetDistribution
+              - cloudfront:ListDistributions
+              - cloudfront:TagResource
+            Resource: 
+              - !Sub 'arn:aws:cloudfront:*:${AWS::AccountId}:distribution/*'
+          - Effect: Allow
+            Action:
+              - cloudfront:CreateOriginAccessControl
+              - cloudfront:UpdateOriginAccessControl
+              - cloudfront:DeleteOriginAccessControl
+              - cloudfront:ListOriginAccessControls
+              - cloudfront:GetOriginAccessControl
+              - cloudfront:GetOriginAccessControlConfig
+            Resource: '*'
+          - Effect: Allow
+            Action:
+              - tag:TagResources
+              - tag:UntagResources
+            Resource:
+              - !Sub 'arn:aws:s3:::invistus-web-*${Environment}'
+              - !Sub 'arn:aws:cloudfront:*:${AWS::AccountId}:distribution/invistus-web-*${Environment}'           
+
+  InvistusGithubWorkflowRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub 'invistus-oidc-${Environment}-role'
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Federated: !Sub 'arn:aws:iam::${AWS::AccountId}:oidc-provider/token.actions.githubusercontent.com'
+            Action: sts:AssumeRoleWithWebIdentity
+            Condition:
+              ForAllValues:StringEquals:
+                token.actions.githubusercontent.com:aud: sts.amazonaws.com
+                token.actions.githubusercontent.com:iss: https://token.actions.githubusercontent.com,
+              ForAnyValue:StringLike:
+                token.actions.githubusercontent.com:sub: !Sub 'repo:Invistus/invistus:environment:${Environment}'
+      ManagedPolicyArns:
+        - !Ref InvistusWorkflowDeployPolicy
+  
+

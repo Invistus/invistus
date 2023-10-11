@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const LeftMenu = () => {
-    const [isOpen, setIsOpen] = useState(true);
+    const [isOpen ] = useState(true);
 
     const aSideClassName = `${isOpen ? 'menu-open' : 'menu-closed'} box-shadow`
 

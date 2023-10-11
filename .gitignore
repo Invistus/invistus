@@ -1,6 +1,5 @@
 # Dependency directories (node_modules)
 node_modules/
-package-lock.json
 
 # TypeScript compiled files
 dist/
@@ -38,6 +37,7 @@ coverage
 
 # Jest
 /.jest
+__snapshots__
 
 # Miscellaneous
 *.tgz

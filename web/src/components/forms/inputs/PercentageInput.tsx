@@ -10,7 +10,7 @@ const PercentageInput: React.FC<InputProps> = ({ value, onChange, ...props }) =>
     const handleKeyDown= (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Delete' || e.key === 'Backspace') {
             // Ignore percentage in case the user has deleted it
-            if (e.currentTarget.value.length == e.currentTarget.selectionStart) {
+            if (e.currentTarget.value.length === e.currentTarget.selectionStart) {
                 const newPosition = e.currentTarget.selectionStart - 1;
                 e.currentTarget.setSelectionRange(newPosition, newPosition);
             }

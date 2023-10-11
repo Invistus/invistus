@@ -1,0 +1,46 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: CloudFormation template to create an S3 bucket website and serve it using CloudFront.
+
+Parameters:
+  ApplicationName:
+    Description: The name of the application
+    Type: String
+    Default: invistus
+  ComponentName:
+    Description: The name of the component
+    Type: String
+    Default: certificate
+  DomainName:
+    Description: "Domain name (e.g., example.com)."
+    Type: String
+
+Resources:
+
+  InvistusCertificate:
+    Type: AWS::CertificateManager::Certificate
+    Properties:
+      DomainName: !Ref DomainName
+      ValidationMethod: DNS
+      SubjectAlternativeNames:
+        - !Sub dev.${DomainName}
+        - !Sub dev.api.${DomainName}
+        - !Sub stage.${DomainName}
+        - !Sub stage.api.${DomainName}
+        - !Sub api.${DomainName}
+        - !Sub www.${DomainName}
+
+  CertificateArnParameter:
+    Type: 'AWS::SSM::Parameter'
+    Properties:
+      Name: '/invistus/certificatearn'
+      Type: 'String'
+      Value: !Ref InvistusCertificate
+
+Outputs:
+  InvistusCertificateArn:
+    Description: The ARN of the generated ACM certificate
+    Value: !Ref InvistusCertificate
+    Export:
+      Name: InvistusCertificateArn
+
+

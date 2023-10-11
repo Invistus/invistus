@@ -1,0 +1,126 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: CloudFormation template to create an S3 bucket website and serve it using CloudFront.
+
+Parameters:
+  ApplicationName:
+    Description: The name of the application
+    Type: String
+    Default: invistus
+  ComponentName:
+    Description: The name of the component
+    Type: String
+    Default: web
+  Environment:
+    Description: The environment for this bucket.
+    Type: String
+  DomainAlias:
+    Description: "Domain alias name (i.e.: dev.example.com)."
+    Type: String
+  ACMCertificateARN:
+    Description: ARN of Domain certificate
+    Type: String
+
+Resources:
+
+  InvistusWebS3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub '${ApplicationName}-${ComponentName}-${Environment}'
+      AccessControl: Private
+      Tags:
+        - Key: Application
+          Value: !Ref ApplicationName
+        - Key: Component
+          Value: !Ref ComponentName
+        - Key: Environment
+          Value: !Ref Environment
+
+  CloudFrontOriginAccessControl:
+    Type: AWS::CloudFront::OriginAccessControl
+    Properties:
+      OriginAccessControlConfig:
+        Description: "Origin access control(OAC) for allowing cloudfront to access S3 bucket"
+        Name: invistus-static-hosting-oac
+        OriginAccessControlOriginType: s3
+        SigningBehavior: always
+        SigningProtocol: sigv4
+
+  InvistusCloudFrontDistribution:
+    Type: AWS::CloudFront::Distribution
+    DependsOn:
+      - InvistusWebS3Bucket
+      - CloudFrontOriginAccessControl
+    Properties:
+      DistributionConfig:
+        Origins:
+          - DomainName: !Sub '${ApplicationName}-${ComponentName}-${Environment}.s3.sa-east-1.amazonaws.com'
+            Id: static-hosting
+            S3OriginConfig:
+              OriginAccessIdentity: ""
+            OriginAccessControlId: !GetAtt CloudFrontOriginAccessControl.Id
+        Enabled: "true"
+        DefaultRootObject: index.html
+        # CustomErrorResponses:
+        #   - ErrorCode: 404
+        #     ResponseCode: 200
+        #     ResponsePagePath: /index.html
+        #   - ErrorCode: 403
+        #     ResponseCode: 200
+        #     ResponsePagePath: /index.html
+        HttpVersion: http2
+        DefaultCacheBehavior:
+          AllowedMethods:
+            - DELETE
+            - GET
+            - HEAD
+            - OPTIONS
+            - PATCH
+            - POST
+            - PUT
+          Compress: true
+          TargetOriginId: static-hosting
+          ForwardedValues:
+            QueryString: "false"
+            Cookies:
+              Forward: none
+          ViewerProtocolPolicy: redirect-to-https
+        Aliases:
+          - !Ref DomainAlias
+        ViewerCertificate:
+          AcmCertificateArn: !Ref ACMCertificateARN
+          SslSupportMethod: sni-only
+          MinimumProtocolVersion: TLSv1.2_2019
+      Tags:
+        - Key: Application
+          Value: !Ref ApplicationName
+        - Key: Component
+          Value: !Ref ComponentName
+        - Key: Environment
+          Value: !Ref Environment
+
+  InvistusWebS3BucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref InvistusWebS3Bucket 
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: cloudfront.amazonaws.com
+            Action: s3:GetObject
+            Resource: !Sub "arn:aws:s3:::${InvistusWebS3Bucket}/*"
+            Condition:
+              StringEquals:
+                AWS:SourceArn: !Sub "arn:aws:cloudfront::${AWS::AccountId}:distribution/${InvistusCloudFrontDistribution}"
+
+Outputs:
+  InvistusWebS3Bucket:
+    Description: Name of the S3 bucket
+    Value: !Ref InvistusWebS3Bucket
+  OriginAccessControl:
+    Value: !Ref CloudFrontOriginAccessControl    
+  InvistusCloudFrontDistribution:
+    Description: CloudFront distribution URL
+    Value: !GetAtt [InvistusCloudFrontDistribution, DomainName]
+

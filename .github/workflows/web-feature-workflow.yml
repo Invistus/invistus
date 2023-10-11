@@ -1,0 +1,47 @@
+name: Deploy Web Application on Dev
+
+permissions:
+  id-token: write # This is required for requesting the JWT
+  contents: read  # This is required for actions/checkout
+
+on:
+  push:
+    branches:
+      - develop
+    paths:
+      - web/**
+      - .github/actions/**-web
+      - .github/workflows/web-feature-workflow.yml
+      
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+
+jobs:
+
+  build_and_deploy_web:
+    runs-on: ubuntu-latest
+    environment: dev 
+    steps:
+
+    #checkout code
+    - name: Git clone the repository
+      uses: actions/checkout@v4
+
+    # Build web application
+    - name: Build Web App
+      uses: ./.github/actions/build-web
+
+    # Deploy package on AWS
+    - name: Deploy on AWS
+      uses: ./.github/actions/deploy-web
+      with:
+        environment: dev
+        bucketNamePrefix: invistus-web
+        roleToAssume: ${{ secrets.AWS_OIDC_ROLE }}
+        awsRegion: ${{ secrets.AWS_REGION }}
+        awsCertificateARN: ${{ secrets.AWS_CERTIFICATE_ARN }}
+        domainName: ${{ vars.DOMAIN_NAME }}
+
+

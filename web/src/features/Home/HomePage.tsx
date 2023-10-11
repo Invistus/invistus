@@ -4,7 +4,7 @@ const HomePage: React.FC = () => {
   return (
     <Page title="Home">
       <h2>Welcome to the Home Page</h2>
-      <div className="container mt-5">
+      {/* <div className="container mt-5">
             <h1 className="text-center mb-4">Welcome to My App</h1>
             <div className="row">
                 <div className="col-md-6">
@@ -33,7 +33,7 @@ const HomePage: React.FC = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </div> */}
     </Page>
   );
 }
