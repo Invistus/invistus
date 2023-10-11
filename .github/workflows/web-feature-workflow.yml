@@ -11,8 +11,9 @@ on:
       - 2-chore-create-cicd-with-github-actions # TODO remove it. Just for test.
     paths:
       - web/**
+      - .github/actions/**-web
       - .github/workflows/web-feature-workflow.yml
-
+      
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
