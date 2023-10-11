@@ -1,4 +1,4 @@
-name: Deploy Web Application
+name: Staging Deployment
 
 permissions:
   id-token: write # This is required for requesting the JWT
@@ -7,35 +7,50 @@ permissions:
 on:
   push:
     branches:
-      - 2-chore-create-cicd-with-github-actions # TODO remove it. Just for test.
-      - develop
+      - 'release-test/*'
     paths:
       - web/**
-      - .github/workflows/invistus-web-*-workflow.yml
+      - .github/workflows/web-release-workflow.yml
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
-
+  
 env:
   BUCKET_NAME: invistus-web
-  ENVIRONMENT: dev
+  ENVIRONMENT: stage
 
 jobs:
 
-  build_web:
+  build:
     runs-on: ubuntu-latest
     steps:
-    - name: Git clone the repository
-      uses: actions/checkout@v4
+      - name: Git clone the repository
+        uses: actions/checkout@v4
+      
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18.x'
 
-    - name: Build Web App
-      uses: ./.github/actions/build-web
+      - name: Install and Build
+        working-directory: ./web
+        run: |
+          npm ci
+          npm run build
 
-  deploy:
-    needs: build_web
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-artifact
+          path: |
+            web/build/**
+            web/infra/**
+
+  deploy_dev:
+    needs: build
     runs-on: ubuntu-latest
-    environment: dev # there's an that doesn't allow me to use ${{ env.ENVIRONMENT}} see https://github.com/actions/runner/issues/2372
+    environment: dev
     steps:
 
       # AWS Login with OIDC
@@ -57,12 +72,12 @@ jobs:
         working-directory: ./infra/
         run: |
           chmod +x aws-web-deploy.sh
-          ./aws-web-deploy.sh $ENVIRONMENT ${{ vars.DOMAIN }} ${{ secrets.AWS_CERTIFICATE_ARN }}
+          ./aws-web-deploy.sh dev
 
       # Deploy web pkg to S3 bucket
       - name: Deploy to S3 bucket
         working-directory: ./build/
         run: |
-          aws s3 sync . s3://$BUCKET_NAME-$ENVIRONMENT --delete
+          aws s3 sync . s3://$BUCKET_NAME-dev --delete
 
 

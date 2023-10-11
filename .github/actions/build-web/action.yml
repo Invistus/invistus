@@ -15,10 +15,10 @@ runs:
       working-directory: ./web
       shell: bash
 
-    - name: Upload build artifacts
-      uses: actions/upload-artifact@v3
-      with:
-        name: build-artifact
-        path: |
-          web/build/**
-          web/infra/**
+    # - name: Upload build artifacts
+    #   uses: actions/upload-artifact@v3
+    #   with:
+    #     name: build-artifact
+    #     path: |
+    #       web/build/**
+    #       web/infra/**

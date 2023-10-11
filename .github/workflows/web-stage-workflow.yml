@@ -1,4 +1,4 @@
-name: Deploy Web Application
+name: Deploy Web Application on Stage
 
 permissions:
   id-token: write # This is required for requesting the JWT
@@ -7,49 +7,43 @@ permissions:
 on:
   push:
     branches:
-      - 'main'
+      - release-test/*
     paths:
       - web/**
-      - .github/workflows/*-web-workflow.yml
+      - .github/workflows/invistus-web-*-workflow.yml
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
-  
+
 env:
   BUCKET_NAME: invistus-web
+  ENVIRONMENT: stage
 
 jobs:
 
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Git clone the repository
-        uses: actions/checkout@v4
-      
-      - name: Use Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18.x'
+    - name: Extract branch name
+      run: echo "VERSION=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
 
-      - name: Install and Build
-        working-directory: ./web
-        run: |
-          npm ci
-          npm run build
+    - name: Print Version
+      run: echo "Deploying version ${{ env.VERSION }}"
 
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: build-artifact
-          path: |
-            web/build/**
-            web/infra/**
-
-  deploy_dev:
-    needs: build
+  build_web:
     runs-on: ubuntu-latest
-    environment: dev
+    steps:
+    - name: Git clone the repository
+      uses: actions/checkout@v4
+
+    - name: Build Web App
+      uses: ./.github/actions/build-web
+
+  deploy:
+    needs: build_web
+    runs-on: ubuntu-latest
+    environment: stage
     steps:
 
       # AWS Login with OIDC
@@ -71,12 +65,10 @@ jobs:
         working-directory: ./infra/
         run: |
           chmod +x aws-web-deploy.sh
-          ./aws-web-deploy.sh dev
+          ./aws-web-deploy.sh $ENVIRONMENT ${{ vars.DOMAIN }} ${{ secrets.AWS_CERTIFICATE_ARN }}
 
       # Deploy web pkg to S3 bucket
       - name: Deploy to S3 bucket
         working-directory: ./build/
         run: |
-          aws s3 sync . s3://$BUCKET_NAME-dev --delete
-
-
+          aws s3 sync . s3://$BUCKET_NAME-$ENVIRONMENT --delete

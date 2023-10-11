@@ -1,4 +1,4 @@
-name: Deploy Web Application
+name: Deploy Web Application on Stage
 
 permissions:
   id-token: write # This is required for requesting the JWT
@@ -7,7 +7,7 @@ permissions:
 on:
   push:
     branches:
-      - release/*
+      - release-test/*
     paths:
       - web/**
       - .github/workflows/invistus-web-*-workflow.yml
@@ -72,4 +72,3 @@ jobs:
         working-directory: ./build/
         run: |
           aws s3 sync . s3://$BUCKET_NAME-$ENVIRONMENT --delete
-

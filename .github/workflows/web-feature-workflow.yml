@@ -1,0 +1,40 @@
+name: Deploy Web Application on Dev
+
+permissions:
+  id-token: write # This is required for requesting the JWT
+  contents: read  # This is required for actions/checkout
+
+on:
+  push:
+    branches:
+      - develop
+      - 2-chore-create-cicd-with-github-actions # TODO remove it. Just for test.
+    paths:
+      - web/**
+      - .github/workflows/web-feature-workflow.yml
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+
+jobs:
+
+  build_and_deploy_web:
+    runs-on: ubuntu-latest
+    environment: dev 
+    steps:
+    - name: Git clone the repository
+      uses: actions/checkout@v4
+
+    - name: Build Web App
+      uses: ./.github/actions/build-web
+
+    - name: Build Web App
+      uses: ./.github/actions/deploy-web
+      with:
+        environment: dev
+        bucketNamePrefix: invistus-web
+
+
+

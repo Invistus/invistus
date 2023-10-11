@@ -1,0 +1,39 @@
+name: Deploy Web Application
+description: Deploy Web application on AWS Cloud
+inputs:
+  environment:
+    description: Environment
+    required: true
+  bucketNamePrefix:
+    description: Bucket name prefix
+    required: true
+runs:
+  using: "composite"
+  steps:      
+
+    # AWS Login with OIDC
+    - name: configure aws credentials
+      uses: aws-actions/configure-aws-credentials@v3
+      with:
+        role-to-assume: ${{ secrets.AWS_OIDC_ROLE }}
+        role-session-name: github-action-session
+        aws-region: ${{ secrets.AWS_REGION }}
+
+    # #  Download artifacts to deploy
+    # - name: Download artifacts to deploy
+    #   uses: actions/download-artifact@v3
+    #   with:
+    #     name: build-artifact
+
+    # Run IaC (AWS Cloudformation)
+    - name: Setup Infrastructe on AWS
+      working-directory: ./web/infra/
+      run: |
+        chmod +x aws-web-deploy.sh
+        ./aws-web-deploy.sh ${{ inputs.environment }} ${{ vars.DOMAIN_NAME }} ${{ secrets.AWS_CERTIFICATE_ARN }}
+
+    # Deploy web pkg to S3 bucket
+    - name: Deploy to S3 bucket
+      working-directory: ./web/build/
+      run: |
+        aws s3 sync . s3://${{ inputs.bucketNamePrefix }}-${{ inputs.environment }} --delete
