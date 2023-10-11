@@ -37,7 +37,7 @@ jobs:
     - name: Deploy on AWS
       uses: ./.github/actions/deploy-web
       with:
-        environment: dev
+        environment: stage
         bucketNamePrefix: invistus-web
         roleToAssume: ${{ secrets.AWS_OIDC_ROLE }}
         awsRegion: ${{ secrets.AWS_REGION }}
