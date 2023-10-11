@@ -37,6 +37,7 @@ runs:
     # Run IaC (AWS Cloudformation)
     - name: Setup Infrastructe on AWS
       working-directory: ./web/infra/
+      shell: bash
       run: |
         chmod +x aws-web-deploy.sh
         ./aws-web-deploy.sh ${{ inputs.environment }} ${{ inputs.domainName }} ${{ inputs.awsCertificateARN }}
@@ -44,5 +45,6 @@ runs:
     # Deploy web pkg to S3 bucket
     - name: Deploy to S3 bucket
       working-directory: ./web/build/
+      shell: bash
       run: |
         aws s3 sync . s3://${{ inputs.bucketNamePrefix }}-${{ inputs.environment }} --delete
