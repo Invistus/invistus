@@ -7,6 +7,15 @@ inputs:
   bucketNamePrefix:
     description: Bucket name prefix
     required: true
+  roleToAssume:
+    description: OIDC role to be assumed
+    required: true
+  awsRegion:
+    required: true
+  awsCertificateARN:
+    required: true
+  domainName:
+    required: true
 runs:
   using: "composite"
   steps:      
@@ -15,9 +24,9 @@ runs:
     - name: configure aws credentials
       uses: aws-actions/configure-aws-credentials@v3
       with:
-        role-to-assume: ${{ secrets.AWS_OIDC_ROLE }}
+        role-to-assume: ${{ inputs.roleToAssume }}
         role-session-name: github-action-session
-        aws-region: ${{ secrets.AWS_REGION }}
+        aws-region: ${{ inputs.awsRegion }}
 
     # #  Download artifacts to deploy
     # - name: Download artifacts to deploy
@@ -30,7 +39,7 @@ runs:
       working-directory: ./web/infra/
       run: |
         chmod +x aws-web-deploy.sh
-        ./aws-web-deploy.sh ${{ inputs.environment }} ${{ vars.DOMAIN_NAME }} ${{ secrets.AWS_CERTIFICATE_ARN }}
+        ./aws-web-deploy.sh ${{ inputs.environment }} ${{ inputs.domainName }} ${{ inputs.awsCertificateARN }}
 
     # Deploy web pkg to S3 bucket
     - name: Deploy to S3 bucket
