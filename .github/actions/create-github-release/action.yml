@@ -10,6 +10,7 @@ runs:
     # Create release on Github
     - name: Get the version
       id: get_version
+      shell: bash
       run: |
         version=${GITHUB_REF#refs/tags/}
         echo "version=$version" >> $GITHUB_ENV

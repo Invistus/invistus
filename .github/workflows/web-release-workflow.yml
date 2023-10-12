@@ -23,7 +23,6 @@ jobs:
   build_and_deploy_web:
     runs-on: ubuntu-latest
     environment: prod 
-    # if: github.ref == 'refs/heads/main'
     steps:
 
     #checkout code
