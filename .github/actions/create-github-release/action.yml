@@ -22,7 +22,7 @@ runs:
       env:
         GITHUB_TOKEN: ${{ inputs.githubToken }}
       with:
-        tag_name: ${{ steps.get_version.outputs.VERSION }}
-        release_name: Release ${{ steps.get_version.outputs.VERSION }}
+        tag_name: ${{ env.version }}
+        release_name: Release ${{ env.version }}
         draft: false
         prerelease: false
