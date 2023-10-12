@@ -1,6 +1,5 @@
 name: Create Github Release
 description: Create a Github Release statement in the project
-permissions: write-all
 inputs:
   githubToken:
     required: true
