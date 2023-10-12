@@ -93,10 +93,10 @@ Follow these steps when you're adding a new feature:
 5. **Stabilize the Release**: If there are bugs found in the release candidate, fix them in the `release/vX.Y.Z` branch.
 
 6. **Release to Production**:
-    - Merge `release/vX.Y.Z` into `main` and tag it.
+    - Create a Pull Request to merge `release/vX.Y.Z` into `main`
+    
+    - Tag the commit to trigger the release workflow.
         ```bash
-        git checkout main
-        git merge --no-ff release/vX.Y.Z
         git tag vX.Y.Z
         git push origin main --tags
         ```

@@ -27,6 +27,7 @@ Resources:
         - !Sub stage.${DomainName}
         - !Sub stage.api.${DomainName}
         - !Sub api.${DomainName}
+        - !Sub prod.${DomainName}
         - !Sub www.${DomainName}
 
   CertificateArnParameter:
