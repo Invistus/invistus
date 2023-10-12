@@ -8,10 +8,7 @@ on:
   push:
     tag:
       - v*.*.*  # Assuming semantic versioning for tags, e.g., v1.0.0
-    paths:
-      - web/**
-      - .github/actions/**-web
-      - .github/workflows/web-release-workflow.yml
+
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
