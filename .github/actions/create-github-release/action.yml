@@ -1,5 +1,8 @@
 name: Create Github Release
 description: Create a Github Release statement in the project
+inputs:
+  githubToken:
+    required: true
 runs:
   using: "composite"
   steps:      
@@ -16,7 +19,7 @@ runs:
       id: create_release
       uses: actions/create-release@v1
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions
+        GITHUB_TOKEN: ${{ inputs.githubToken }}
       with:
         tag_name: ${{ steps.get_version.outputs.VERSION }}
         release_name: Release ${{ steps.get_version.outputs.VERSION }}
