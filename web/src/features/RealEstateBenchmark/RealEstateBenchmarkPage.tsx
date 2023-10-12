@@ -32,7 +32,7 @@ export const RealEstateBenchmarkPage: React.FC = () => {
 
   return (
     <Page>
-      <Panel title={t('realEstateBenchmark.label')}>
+      <Panel title={t('realEstateBenchmark.label')} image="/images/assets/real_estate_benchmark.png">
         {errors && <ErrorMessages errors={errors} />}
         <RealEstateBenchmarkForm onSubmit={handleFormSubmit} />
       </Panel>
