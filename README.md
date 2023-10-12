@@ -101,12 +101,7 @@ Follow these steps when you're adding a new feature:
         git push origin main --tags
         ```
 
-    - Merge `release/vX.Y.Z` back into `develop` to ensure the `develop` branch has the latest changes.
-        ```bash
-        git checkout develop
-        git merge --no-ff release/vX.Y.Z
-        git push origin develop
-        ```
+    - Create a Pull Request to merge `main` into `develop`
 
 7. **Cleanup**: Delete the local and remote `release/vX.Y.Z` and `feature/*` branches.
     ```bash
@@ -133,26 +128,18 @@ For critical bugs that can't wait for the next regular release:
     ```
 
 3. **Merge into Main**:
-    - Merge your `hotfix/your-hotfix-name` branch into `main`, tag it, and push.
+
+    - Create a Pull Request to merge `hotfix/your-hotfix-name` into `main`
+
+    - Tag the commit to trigger the release workflow.
         ```bash
-        git checkout main
-        git merge --no-ff hotfix/your-hotfix-name
-        git tag vX.Y.Z+1 # Increment the version appropriately
+        git tag vX.Y.Z
         git push origin main --tags
         ```
 
 4. **Merge into Develop and Latest Release**:
-    - Ensure the `develop` branch and the latest `release/v*` (if it exists) get the hotfix.
-        ```bash
-        git checkout develop
-        git merge --no-ff hotfix/your-hotfix-name
-        git push origin develop
 
-        # If there's an active release/v* branch:
-        git checkout release/vX.Y.Z # The current release branch
-        git merge --no-ff hotfix/your-hotfix-name
-        git push origin release/vX.Y.Z
-        ```
+    - Create a Pull Request to merge `main` into `develop` and `release/v*` if it exists.
 
 5. **Cleanup**: Delete the local and remote `hotfix/*` branches.
     ```bash
