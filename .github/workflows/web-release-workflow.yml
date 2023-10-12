@@ -51,7 +51,7 @@ jobs:
         domainName: ${{ vars.DOMAIN_NAME }}
 
     # Create Release
-    - name: Create Github Release
+    - name: Create Github Release Statement
       uses: ./.github/actions/create-github-release
       with:
         githubToken: ${{ secrets.GITHUB_TOKEN }}
