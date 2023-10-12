@@ -16,7 +16,7 @@ runs:
       env:
         GITHUB_TOKEN: ${{ inputs.githubToken }}
       with:
-        tag_name: ${{ tag }}
-        release_name: ${{tag }}
+        tag_name: ${{ inputs.tag }}
+        release_name: ${{ inputs.tag }}
         draft: false
         prerelease: false
