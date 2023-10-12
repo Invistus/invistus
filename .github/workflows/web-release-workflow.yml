@@ -1,4 +1,4 @@
-name: Deploy Web Application on Stage
+name: Deploy Web Application to Production
 
 permissions:
   id-token: write # This is required for requesting the JWT
