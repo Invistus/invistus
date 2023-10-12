@@ -21,30 +21,35 @@ concurrency:
 jobs:
 
   build_and_deploy_web:
-    if: startsWith(github.ref_name, 'v')
     runs-on: ubuntu-latest
     environment: prod 
     permissions: write-all
     steps:
 
-    #checkout code
-    - name: Git clone the repository
-      uses: actions/checkout@v4
+    - name: Setup Infrastructe on AWS
+      working-directory: ./web/infra/
+      shell: bash
+      run: |
+        echo ${{ github.ref_name }}
 
-    # Build web application
-    - name: Build Web App
-      uses: ./.github/actions/build-web
+    # #checkout code
+    # - name: Git clone the repository
+    #   uses: actions/checkout@v4
 
-    # Deploy package on AWS
-    - name: Deploy on AWS
-      uses: ./.github/actions/deploy-web
-      with:
-        environment: prod
-        bucketNamePrefix: invistus-web
-        roleToAssume: ${{ secrets.AWS_OIDC_ROLE }}
-        awsRegion: ${{ secrets.AWS_REGION }}
-        awsCertificateARN: ${{ secrets.AWS_CERTIFICATE_ARN }}
-        domainName: ${{ vars.DOMAIN_NAME }}
+    # # Build web application
+    # - name: Build Web App
+    #   uses: ./.github/actions/build-web
+
+    # # Deploy package on AWS
+    # - name: Deploy on AWS
+    #   uses: ./.github/actions/deploy-web
+    #   with:
+    #     environment: prod
+    #     bucketNamePrefix: invistus-web
+    #     roleToAssume: ${{ secrets.AWS_OIDC_ROLE }}
+    #     awsRegion: ${{ secrets.AWS_REGION }}
+    #     awsCertificateARN: ${{ secrets.AWS_CERTIFICATE_ARN }}
+    #     domainName: ${{ vars.DOMAIN_NAME }}
 
     # Create Release
     - name: Create Github Release
