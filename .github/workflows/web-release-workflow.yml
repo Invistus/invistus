@@ -50,3 +50,4 @@ jobs:
       uses: ./.github/actions/create-github-release
       with:
         githubToken: ${{ secrets.GITHUB_TOKEN }}
+        tag: ${{ github.ref_name }}

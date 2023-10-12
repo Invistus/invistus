@@ -3,17 +3,11 @@ description: Create a Github Release statement in the project
 inputs:
   githubToken:
     required: true
+  tag:
+    required: true
 runs:
   using: "composite"
   steps:      
-
-    # Create release on Github
-    - name: Get the version
-      id: get_version
-      shell: bash
-      run: |
-        version=${GITHUB_REF#refs/tags/}
-        echo "version=$version" >> $GITHUB_ENV
 
     # Create Github release
     - name: Create Release
@@ -22,7 +16,7 @@ runs:
       env:
         GITHUB_TOKEN: ${{ inputs.githubToken }}
       with:
-        tag_name: ${{ env.version }}
-        release_name: Release ${{ env.version }}
+        tag_name: ${{ tag }}
+        release_name: ${{tag }}
         draft: false
         prerelease: false
