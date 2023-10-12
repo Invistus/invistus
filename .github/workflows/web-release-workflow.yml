@@ -10,7 +10,7 @@ on:
       - v*
     paths:
       - web/**
-      - .github/actions/*
+      - .github/actions/**
       - .github/workflows/web-hotfix-workflow.yml
 
 concurrency:
