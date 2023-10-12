@@ -45,3 +45,7 @@ jobs:
         awsRegion: ${{ secrets.AWS_REGION }}
         awsCertificateARN: ${{ secrets.AWS_CERTIFICATE_ARN }}
         domainName: ${{ vars.DOMAIN_NAME }}
+
+    # Create Release
+    - name: Create Github Release
+      uses: ./.github/actions/create-github-release
