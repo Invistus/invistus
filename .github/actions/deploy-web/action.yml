@@ -28,12 +28,6 @@ runs:
         role-session-name: github-action-session
         aws-region: ${{ inputs.awsRegion }}
 
-    # #  Download artifacts to deploy
-    # - name: Download artifacts to deploy
-    #   uses: actions/download-artifact@v3
-    #   with:
-    #     name: build-artifact
-
     # Run IaC (AWS Cloudformation)
     - name: Setup Infrastructe on AWS
       working-directory: ./web/infra/
