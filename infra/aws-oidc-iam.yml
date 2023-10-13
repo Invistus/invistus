@@ -44,6 +44,7 @@ Resources:
               - s3:GetObject
               - s3:DeleteObject
               - s3:PutBucketTagging
+              - s3:GetBucketLocation
             Resource: 
               - !Sub 'arn:aws:s3:::invistus-web-*${Environment}/*'
               - !Sub 'arn:aws:s3:::invistus-web-*${Environment}'
@@ -55,6 +56,8 @@ Resources:
               - cloudfront:GetDistribution
               - cloudfront:ListDistributions
               - cloudfront:TagResource
+              - cloudfront:ListTagsForResource
+              - cloudfront:GetDistributionConfig
             Resource: 
               - !Sub 'arn:aws:cloudfront:*:${AWS::AccountId}:distribution/*'
           - Effect: Allow
