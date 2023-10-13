@@ -22,7 +22,9 @@ export const CompoundInterestPage = () => {
 
   return (
     <Page>
-        <Panel title={t('compoundInterest.label')} image="/images/assets/compound_interest.png">
+        <Panel  title={t('compoundInterest.label')} 
+                subTitle={t('compoundInterest.description')} 
+                image="/images/assets/compound_interest.png">
           <CompoundInterestForm onCalculate={handleCalculation}/>
         </Panel>
         {result && (

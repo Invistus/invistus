@@ -13,8 +13,10 @@ const Panel: React.FC<IPanel> = ({ title, subTitle, className, children, image }
     <div className={`panel-container panel-shadow ${className || ""}`}>
         <div className="header">
             {image && <div className="image-header"><img src={image} alt={title} /></div>}
-            {title && <h1>{title}</h1>}
-            {subTitle && <h2>{subTitle}</h2>}
+            <div>
+                {title && <h1>{title}</h1>}
+                {subTitle && <h3>{subTitle}</h3>}
+            </div>
         </div>
         <div>
             { children && children }
