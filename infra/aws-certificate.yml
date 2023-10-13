@@ -11,7 +11,9 @@ Parameters:
     Type: String
     Default: certificate
   DomainName:
-    Description: "Domain name (e.g., example.com)."
+    Description: Domain name (e.g., example.com).
+    Type: String
+  Environment:
     Type: String
 
 Resources:
@@ -21,19 +23,11 @@ Resources:
     Properties:
       DomainName: !Ref DomainName
       ValidationMethod: DNS
-      SubjectAlternativeNames:
-        - !Sub dev.${DomainName}
-        - !Sub dev.api.${DomainName}
-        - !Sub stage.${DomainName}
-        - !Sub stage.api.${DomainName}
-        - !Sub api.${DomainName}
-        - !Sub prod.${DomainName}
-        - !Sub www.${DomainName}
 
-  CertificateArnParameter:
+CertificateArnParameter:
     Type: 'AWS::SSM::Parameter'
     Properties:
-      Name: '/invistus/certificatearn'
+      Name: !Sub '/invistus/certificatearn/${Environment}'
       Type: 'String'
       Value: !Ref InvistusCertificate
 
@@ -42,6 +36,6 @@ Outputs:
     Description: The ARN of the generated ACM certificate
     Value: !Ref InvistusCertificate
     Export:
-      Name: InvistusCertificateArn
+      Name: !Sub 'invistus-certificate-arn-${Environment}'
 
 

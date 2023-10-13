@@ -8,14 +8,10 @@ on:
   push:
     branches:
       - release/v*
-    paths:
-      - web/**
-      - .github/actions/**
-      - .github/workflows/web-stage-workflow.yml
   create:
     branches:
       - release/v*
-
+      
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
