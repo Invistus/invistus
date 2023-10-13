@@ -10,7 +10,7 @@ on:
       - release/*
     paths:
       - web/**
-      - .github/actions/**-web
+      - .github/actions/**
       - .github/workflows/web-stage-workflow.yml
 
 concurrency:
