@@ -10,9 +10,12 @@ on:
       - release/*
     paths:
       - web/**
-      - .github/actions/**-web
+      - .github/actions/**
       - .github/workflows/web-stage-workflow.yml
-
+  create:
+    branches:
+      - release/*
+      
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true

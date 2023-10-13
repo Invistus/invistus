@@ -205,6 +205,26 @@ div.panel-container {
   width: auto;
 }
 
+div.panel-container .header {
+  display: flex;
+}
+
+div.panel-container .header h1, div.panel-container .header h3 {
+  margin: 0px;
+  padding: 0px;
+}
+
+div.panel-container div.image-header {
+  left: -32px;
+  position: relative;
+  top: -18px;
+  width: 120px;
+  height: 120px;
+}
+
+div.panel-container div.image-header img {
+  width: 140px;
+}
 
 /*  Pages */
 div.page-container {
