@@ -22,7 +22,9 @@ export const FixedIncomeBenchmarkPage: React.FC = () => {
 
   return (
     <Page>
-      <Panel title={t('fixedIncomeBenchmark.label')} image="/images/assets/fixed_income_benchmark.png">
+      <Panel  title={t('fixedIncomeBenchmark.label')} 
+              subTitle={t('fixedIncomeBenchmark.description')} 
+              image="/images/assets/fixed_income_benchmark.png">
         <FixedIncomeBenchmarkForm onSubmit={handleFormSubmit} />
       </Panel>
       {result && 

@@ -9,6 +9,7 @@ export interface ILanguagePack {
     };
     compoundInterest: {
       label: string,
+      description: string,
       principal: string,
       contribution: string,
       rate: string,
@@ -24,6 +25,7 @@ export interface ILanguagePack {
     };
     fixedIncomeBenchmark: {
       label: string,
+      description: string,      
       resultLabel: string,
       cdb: string,
       lca_lci: string,
@@ -55,6 +57,7 @@ export interface ILanguagePack {
     };
     realEstateBenchmark: {
       label: string,
+      description: string,
       realEstate: string,
       assets: string,
       homePrice: string,

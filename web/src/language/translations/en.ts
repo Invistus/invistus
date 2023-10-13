@@ -11,6 +11,7 @@ export const en: ILanguagePack = {
   },  
   compoundInterest: {
     label: "Compound Interest",
+    description: "Calculate and understand the power of compound interest",
     principal: "Principal",
     contribution: "Contribution",
     rate: "Rate",
@@ -26,6 +27,7 @@ export const en: ILanguagePack = {
   },
   fixedIncomeBenchmark: {
     label: "CDB vs LCA/LCI",
+    description: "Compare and choose the ideal investment",
     resultLabel: "Benchmark after [durationDays] days",
     cdb: "CDB",
     lca_lci: "LCA/LCI",
@@ -57,6 +59,7 @@ export const en: ILanguagePack = {
   },
   realEstateBenchmark: {
     label: "Real state benchmark",
+    description: "Simulate and find the best choice for you",
     realEstate: "Real estate",
     assets: "Assets",
     homePrice: "Home price",

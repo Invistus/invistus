@@ -11,6 +11,7 @@ export const pt: ILanguagePack = {
   },
   compoundInterest: {
     label: "Juros Compostos",
+    description: "Calcule e entenda o poder dos juros compostos",
     principal: "Valor Inicial",
     contribution: "Aportes periódicos",
     rate: "Taxa de juros",
@@ -26,6 +27,7 @@ export const pt: ILanguagePack = {
   },
   fixedIncomeBenchmark: {
     label: "CDB x LCA/LCI",
+    description: "Compare e escolha o melhor investimento",
     resultLabel: "Benchmark com o prazo de [durationDays] dia(s)",
     cdb: "CDB",
     lca_lci: "LCA/LCI",
@@ -57,6 +59,7 @@ export const pt: ILanguagePack = {
   },
   realEstateBenchmark: {
     label: "Comprar, Financiar ou Alugar Imóvel",
+    description: "Simule e descubra a melhor escolha para você",
     realEstate: "Imóvel",
     assets: "Patrimônio",
     homePrice: "Valor do imóvel",
