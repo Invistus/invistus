@@ -24,7 +24,7 @@ Resources:
       DomainName: !Ref DomainName
       ValidationMethod: DNS
 
-  CertificateArnParameter:
+CertificateArnParameter:
     Type: 'AWS::SSM::Parameter'
     Properties:
       Name: !Sub '/invistus/certificatearn/${Environment}'
