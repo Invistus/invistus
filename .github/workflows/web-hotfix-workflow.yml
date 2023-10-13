@@ -10,8 +10,11 @@ on:
       - hotfix/*
     paths:
       - web/**
-      - .github/actions/**-web
+      - .github/actions/**
       - .github/workflows/web-hotfix-workflow.yml
+  create:
+    branches:
+      - hotfix/*
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
