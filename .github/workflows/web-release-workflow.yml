@@ -11,7 +11,7 @@ on:
     paths:
       - web/**
       - .github/actions/**
-      - .github/workflows/web-hotfix-workflow.yml
+      - .github/workflows/web-release-workflow.yml
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
