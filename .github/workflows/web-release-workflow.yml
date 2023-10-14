@@ -6,8 +6,8 @@ permissions:
 
 on:
   push:
-    tag:
-      - v*
+    branch:
+      - main
     paths:
       - web/**
       - .github/actions/**
