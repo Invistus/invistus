@@ -15,7 +15,7 @@ const LeftMenu: React.FC<LeftMenuProps> = ({ menuVisible = false, toggleMenu }) 
     const { t } = useTranslation();
       
     return (
-        <aside className={aSideClassName} >
+        <aside className={aSideClassName}>
             {/* <button onClick={() => setIsOpen(!isOpen)}>Toggle Menu</button> */}
             <div className="menu-items">
                 <ul>

@@ -6,7 +6,7 @@ import './layout.css';
 
 const MainLayout = (props : PropsWithChildren) => {
     
-    const [menuVisible, setMenuVisible] = useState(false);
+    const [ menuVisible, setMenuVisible ] = useState(false);
 
     const toggleMenu = () => {
         const visible = !menuVisible;

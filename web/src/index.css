@@ -19,7 +19,7 @@
   --inv-inner-shadow: inset -10px -10px 25px 10px rgba(0, 0, 0, 0.1);
 
   /* Animation */
-  --inv-animation-time: 0.3s
+  --inv-animation-time: 0s
 
 }
 
@@ -49,6 +49,7 @@
   to {
       transform: translateX(-100%);
       opacity: 0;
+      position: absolute; left: -9999px;
   }
 }
 
@@ -70,6 +71,7 @@ body {
   background-size: 100%;
   background-repeat: no-repeat;
   background-position: top;
+
 }
 
 code {
@@ -343,12 +345,12 @@ select {
 }
 
 /* Help icon */
-span.help-icon svg {
+span.help-icon i {
   color: #725FEB;
   opacity: .45;
 }
 
-span.help-icon svg:hover {
+span.help-icon i:hover {
   color: var(--bs-blue);
   opacity: .45;
 }
@@ -482,14 +484,13 @@ div.tutorial-container u {
   }
 
   aside.menu.hide {
-    display: none;
+    animation: slideOutToLeft var(--inv-animation-time) forwards;
   }
 
   .menu-button {
     display: block; /* Show the button on smaller screens */
     cursor: pointer;
   }
-
 
   .menu-button.active + .menu-items {
     display: block; /* Show the menu when the button is clicked (active state) */
