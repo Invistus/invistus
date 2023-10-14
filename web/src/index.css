@@ -15,11 +15,46 @@
   --inv-font-size: .9rem;
   --inv-font-color: var(--bs-dark);
 
-
-
   --inv-shadow: 0 10px 15px 0 rgba(0, 0, 0, 0.1), 0 10px 20px 0 rgba(0, 0, 0, 0.1);
   --inv-inner-shadow: inset -10px -10px 25px 10px rgba(0, 0, 0, 0.1);
 
+  /* Animation */
+  --inv-animation-time: 0.3s
+
+}
+
+
+/* Animations */
+@keyframes spin {
+  from {transform:rotate(0deg);}
+  to {transform:rotate(180deg);}
+}
+
+@keyframes slideInFromLeft {
+  from {
+      transform: translateX(-100%);
+      opacity: 0;
+  }
+  to {
+      transform: translateX(0);
+      opacity: 1;
+  }
+}
+
+@keyframes slideOutToLeft {
+  from {
+      transform: translateX(0);
+      opacity: 1;
+  }
+  to {
+      transform: translateX(-100%);
+      opacity: 0;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 body {
@@ -210,6 +245,8 @@ div.panel-container {
   width: fit-content;
   /* min-width: 600px; */
   width: auto;
+
+  animation: fadeIn var(--inv-animation-time) forwards;
 }
 
 div.panel-container div.header {
@@ -423,6 +460,10 @@ div.tutorial-container u {
 /* Media query for screens smaller than a certain width */
 @media (max-width: 768px) {
 
+  div.content.menuVisible {
+    display: none;
+  }
+
   header button.menu-button {
     margin-top: 0;
     padding: 0;
@@ -430,8 +471,14 @@ div.tutorial-container u {
     min-width: unset
   }
 
+  header button.menu-button i {
+    color: var(--inv-secondary-color);
+    animation: spin var(--inv-animation-time) linear .5;
+  }
+
   aside.menu {
     width: 100%;
+    animation: slideInFromLeft var(--inv-animation-time) forwards;
   }
 
   aside.menu.hide {
