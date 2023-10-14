@@ -23,19 +23,3 @@ Resources:
     Properties:
       DomainName: !Ref DomainName
       ValidationMethod: DNS
-
-CertificateArnParameter:
-    Type: 'AWS::SSM::Parameter'
-    Properties:
-      Name: !Sub '/invistus/certificatearn/${Environment}'
-      Type: 'String'
-      Value: !Ref InvistusCertificate
-
-Outputs:
-  InvistusCertificateArn:
-    Description: The ARN of the generated ACM certificate
-    Value: !Ref InvistusCertificate
-    Export:
-      Name: !Sub 'invistus-certificate-arn-${Environment}'
-
-

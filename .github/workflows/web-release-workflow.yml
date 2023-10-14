@@ -6,12 +6,12 @@ permissions:
 
 on:
   push:
-    branches:
-      - main
+    tag:
+      - v*
     paths:
       - web/**
       - .github/actions/**
-      - .github/workflows/web-release-workflow.yml
+      - .github/workflows/web-hotfix-workflow.yml
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
