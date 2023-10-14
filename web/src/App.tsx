@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { LanguageProvider } from 'language/LanguageContext';
 import MainLayout from 'layout/MainLayout';
@@ -11,6 +11,19 @@ import TutorialPage from 'features/Tutorials/TutorialPage';
 import './App.css';
 
 function App() {
+
+    // Trick to avoid to run out animation at loading page
+    const changeAnimationTime = () => {
+      document.documentElement.style.setProperty('--inv-animation-time', '0.3s'); // Change the value
+    }; 
+    useEffect(() => {
+      // Call the changeAnimationTime method after a delay of 300 milliseconds when the component mounts
+      const timerId = setTimeout(changeAnimationTime, 300);
+      // Clean up the timer when the component unmounts
+      return () => clearTimeout(timerId);
+    }, []);
+  
+
   return (
     <div className="App">
       <LanguageProvider>
