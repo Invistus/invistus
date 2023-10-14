@@ -40,21 +40,3 @@
 .result-compound-interest-panel .value {
   font-size: x-large;
 }
-
-/* Media query for screens smaller than a certain width */
-@media (max-width: 768px) {
-
-  div.result-compound-interest-panel {
-    display: block;
-  }
-
-  div.result-compound-interest-panel div {
-    min-width: unset;
-    width: 100%;
-  }
-
-  .result-compound-interest-panel .value {
-    font-size: large;
-  }
-
-}

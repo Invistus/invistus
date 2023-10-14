@@ -23,8 +23,8 @@ const RadioGroupField: React.FC<RadioGroupFieldProps> = ({ onChange, name, contr
           control={control}
           render={({ field }) => (
             <div>
-              {options.map((option, key) => (
-                    <div key={key} className="form-check form-check-inline">
+              {options.map((option) => (
+                    <div className="form-check form-check-inline">
                         <input 
                           className="form-check-input" 
                           type="radio" 
