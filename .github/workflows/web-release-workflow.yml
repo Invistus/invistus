@@ -6,8 +6,8 @@ permissions:
 
 on:
   push:
-    branch:
-      - main
+    tags:
+      - 'v*'
     paths:
       - web/**
       - .github/actions/**
@@ -24,7 +24,6 @@ jobs:
     runs-on: ubuntu-latest
     environment: prod 
     permissions: write-all
-    if: startsWith(github.ref, 'refs/tags/v')
     steps:
 
     - name: Check version
