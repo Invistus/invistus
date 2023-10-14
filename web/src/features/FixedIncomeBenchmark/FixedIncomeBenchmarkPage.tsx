@@ -33,29 +33,29 @@ export const FixedIncomeBenchmarkPage: React.FC = () => {
             <h3>{t('fixedIncomeBenchmark.resultLabel').replace('[durationDays]', result.source.durationDays.toString())}</h3>
             <div className="container table">
               <div className="row">
-                  <div className="col">{t('fixedIncomeBenchmark.investmentType')}</div>
-                  <div className="col">{t('fixedIncomeBenchmark.investmentCategory')}</div>
-                  <div className="col">{t('fixedIncomeBenchmark.dividendYield')}</div>
-                  <div className="col">{t('fixedIncomeBenchmark.tax_table')}</div>
-                  <div className="col">{t('fixedIncomeBenchmark.tax')}</div>
-                  <div className="col">{t('fixedIncomeBenchmark.netReturn')}</div>
+                  <div className="col-2">{t('fixedIncomeBenchmark.investmentType')}</div>
+                  <div className="col-2">{t('fixedIncomeBenchmark.investmentCategory')}</div>
+                  <div className="col-2">{t('fixedIncomeBenchmark.dividendYield')}</div>
+                  <div className="col-2">{t('fixedIncomeBenchmark.tax_table')}</div>
+                  <div className="col-2">{t('fixedIncomeBenchmark.tax')}</div>
+                  <div className="col-2">{t('fixedIncomeBenchmark.netReturn')}</div>
                 </div>
                 <div className="row">
-                  <div className="col">{result.source.investmentType}</div>
-                  <div className="col">{t(`fixedIncomeBenchmark.${result.source.investmentCategory}`)}</div>
-                  <div className="col number">{formatPercentage(result.source.grossReturnPercentage)}</div>
-                  <div className="col center">{result.source.tax_range && t(`fixedIncomeBenchmark.tax_${result.source.tax_range}`)}</div>
-                  <div className="col number">{result.source.tax_rate && formatPercentage(result.source.tax_rate)}</div>
-                  <div className="col number">{formatPercentage(result.source.netReturn)}</div>
+                  <div className="col-2">{result.source.investmentType}</div>
+                  <div className="col-2">{t(`fixedIncomeBenchmark.${result.source.investmentCategory}`)}</div>
+                  <div className="col-2 number">{formatPercentage(result.source.grossReturnPercentage)}</div>
+                  <div className="col-2 center">{result.source.tax_range && t(`fixedIncomeBenchmark.tax_${result.source.tax_range}`)}</div>
+                  <div className="col-2 number">{result.source.tax_rate && formatPercentage(result.source.tax_rate)}</div>
+                  <div className="col-2 number">{formatPercentage(result.source.netReturn)}</div>
                 </div>
                 {result.benchmark.map((benchmark, index) => 
                   <div className="row" key={index}>
-                    <div className="col">{benchmark.investmentType}</div>
-                    <div className="col">{t(`fixedIncomeBenchmark.${benchmark.investmentCategory}`)}</div>
-                    <div className="col number">{formatPercentage(benchmark.grossReturnPercentage)}</div>
-                    <div className="col center">{benchmark.tax_range ? t(`fixedIncomeBenchmark.tax_${benchmark.tax_range}`) : '-'}</div>
-                    <div className="col number">{benchmark.tax_rate ? formatPercentage(benchmark.tax_rate) : '-'}</div>
-                    <div className="col number">{formatPercentage(benchmark.netReturn)}</div>
+                    <div className="col-2">{benchmark.investmentType}</div>
+                    <div className="col-2">{t(`fixedIncomeBenchmark.${benchmark.investmentCategory}`)}</div>
+                    <div className="col-2 number">{formatPercentage(benchmark.grossReturnPercentage)}</div>
+                    <div className="col-2 center">{benchmark.tax_range ? t(`fixedIncomeBenchmark.tax_${benchmark.tax_range}`) : '-'}</div>
+                    <div className="col-2 number">{benchmark.tax_rate ? formatPercentage(benchmark.tax_rate) : '-'}</div>
+                    <div className="col-2 number">{formatPercentage(benchmark.netReturn)}</div>
                   </div>                 
                 )}   
           </div>
