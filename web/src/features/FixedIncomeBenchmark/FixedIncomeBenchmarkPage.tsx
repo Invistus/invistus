@@ -13,7 +13,6 @@ import { useFocus } from 'utils/focus';
 
 export const FixedIncomeBenchmarkPage: React.FC = () => {
 
-  const { t } = useTranslation();
   const [result, setResult] = useState<Result | null>();
   const [ref, setFocus] = useFocus<HTMLDivElement>();
 

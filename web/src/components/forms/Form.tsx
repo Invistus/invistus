@@ -14,7 +14,7 @@ const Form: React.FC<FormProps> = ({ children, className, onSubmit, errors }: Fo
   const [ref, setFocus] = useFocus<HTMLDivElement>();
   useEffect(() => {
     setFocus();
-  }, [errors]);
+  }, [errors, setFocus]);
   return (
     <div className={`${className || ""}`}>
       {errors && <ErrorMessages errors={errors} ref={ref}/>}
