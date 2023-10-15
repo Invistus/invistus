@@ -8,16 +8,19 @@ import { CompoundInterestForm } from './CompoundInterestForm';
 import { CalculationResult, CompoundInterestFormData } from './ICompoundInterest';
 import { calculateCompoundInterest } from './interestCalculator';
 import './CompoundInterest.css';
+import { useFocus } from 'utils/focus';
 
 
 export const CompoundInterestPage = () => {
 
   const [result, setResult] = useState<CalculationResult>();
+  const [ref, setFocus] = useFocus<HTMLDivElement>();
   const { t } = useTranslation();
 
   const handleCalculation = (data: CompoundInterestFormData) => {
     const compoundInterest = calculateCompoundInterest({ ...data });   
     setResult(compoundInterest);
+    setFocus();
   };
 
   return (
@@ -29,7 +32,7 @@ export const CompoundInterestPage = () => {
         </Panel>
         {result && (
             <>
-              <Panel subTitle={t('common.result')}>
+              <Panel subTitle={t('common.result')} ref={ref}>
                   <div className="result-compound-interest-panel">
                     <div className="total-amount">
                       <p className="label">Valor total final</p>

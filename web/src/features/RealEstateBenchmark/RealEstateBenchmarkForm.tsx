@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FieldErrors, FieldValues, useForm } from 'react-hook-form';
 import { RealEstateStrategyInput } from './RealEstateBenchmark';
 import NumberField from 'components/forms/fields/NumberField';
@@ -8,8 +8,9 @@ import Submit from 'components/forms/inputs/Submit';
 import CurrencyField from 'components/forms/fields/CurrencyField';
 import PercentageField from 'components/forms/fields/PercentageField';
 import { getInputDefaults } from 'utils/formUtils';
-import { parseCurrency, parsePercentage, parseNumber } from 'utils/stringUtils';
+import { parseCurrency, parsePercentage, parseNumber, formatErrorMessage } from 'utils/stringUtils';
 import { isNotEmpty } from 'utils/objectUtils';
+
 import Form from 'components/forms/Form';
 
 
@@ -48,10 +49,13 @@ interface FormProps {
 
 const RealEstateBenchmarkForm: React.FC<FormProps> = ({ onSubmit }) => {
   const { t } = useTranslation();
+  const [ errorMessages, setErrorMessages ] = useState<FieldErrors<RealEstateBenchmarkInputValues>>();
 
   const { control, handleSubmit, formState: { errors } } = useForm<RealEstateBenchmarkInputValues, any, RealEstateStrategyInput>({
     defaultValues: defaultValues,
     resolver: async (inputValues: RealEstateBenchmarkInputValues) => {
+
+      setErrorMessages({});
 
       const formData: RealEstateStrategyInput = {
         homePrice: parseCurrency(inputValues.homePrice) || 0,
@@ -79,7 +83,7 @@ const RealEstateBenchmarkForm: React.FC<FormProps> = ({ onSubmit }) => {
       if (formData.mortgageRate <= 0) {
         errors.mortgageRate = {
             type: "manual",
-            message: t('realEstateBenchmark.errors.mortgageRateGreaterThanZero')
+            message: t('realEstateBenchmark.errors.mortageRateGreaterThanZero')
           };    
       }   
 
@@ -97,6 +101,7 @@ const RealEstateBenchmarkForm: React.FC<FormProps> = ({ onSubmit }) => {
           };    
       }         
 
+      setErrorMessages(errors);
       return {
         values: isNotEmpty(errors) ? {} : formData,
         errors: errors,
@@ -104,8 +109,21 @@ const RealEstateBenchmarkForm: React.FC<FormProps> = ({ onSubmit }) => {
     },
   });
 
+  const submit = async (data: RealEstateStrategyInput) => {
+    try {
+      return onSubmit(data);
+    } catch (e) {
+      const error = e as Error;
+      errors.mortgageRate = {
+        type: "manual",
+        message: formatErrorMessage(t(`realEstateBenchmark.errors.${error.message}`), error.cause)
+      };   
+      setErrorMessages(errors);
+    }
+  }
+
   return (
-    <Form onSubmit={handleSubmit(onSubmit)} errors={errors}>
+    <Form onSubmit={handleSubmit(submit)} errors={errorMessages}>
       <p className="field-group">{t('realEstateBenchmark.realEstate')}</p>
       <CurrencyField control={control} name="homePrice" label={t('realEstateBenchmark.homePrice')}/>
       <PercentageField control={control} name="homeAppreciationRate" label={t('realEstateBenchmark.homeAppreciationRate')} />

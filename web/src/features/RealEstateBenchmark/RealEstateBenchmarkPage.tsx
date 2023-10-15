@@ -4,30 +4,19 @@ import { RealEstateStrategyInput, StrategyOutput, realEstateStrategy } from './R
 import useTranslation from 'language/useTranslation';
 import Page from 'components/pages/Page';
 import Panel from 'components/panels/Panel';
-import { formatErrorMessage } from 'utils/stringUtils';
-import ErrorMessages from 'components/forms/errors/ErrorMessages';
-import { FieldErrors } from 'react-hook-form';
-import { RealEstateBenchmarkResult } from './RealEstateBenchmarkResult';
+import RealEstateBenchmarkResult from './RealEstateBenchmarkResult';
 import './RealEstateBenchmark.css';
+import { useFocus } from 'utils/focus';
 
 export const RealEstateBenchmarkPage: React.FC = () => {
   const { t } = useTranslation();
   const [decision, setDecision] = useState<StrategyOutput | null>(null);
-  const [errors, setErrors] = useState<FieldErrors>();
+  const [ref, setFocus] = useFocus<HTMLDivElement>();
 
-  const handleFormSubmit = async (data: RealEstateStrategyInput) => {
-    try {
-      setErrors({});
-      const result = await realEstateStrategy(data);
-      setDecision(result);
-    } catch(e: any) {
-      const fieldErros: FieldErrors = {};
-      fieldErros.mortgageRate = {
-        type: "manual",
-        message: formatErrorMessage(t(`realEstateBenchmark.errors.${e.message}`), e.cause)
-      };   
-      setErrors(fieldErros);
-    }
+  const handleFormSubmit = (data: RealEstateStrategyInput) => {
+    const result = realEstateStrategy(data);
+    setDecision(result);
+    setFocus();
   };
 
   return (
@@ -35,10 +24,9 @@ export const RealEstateBenchmarkPage: React.FC = () => {
       <Panel  title={t('realEstateBenchmark.label')} 
               subTitle={t('realEstateBenchmark.description')} 
               image="/images/assets/real_estate_benchmark.png">
-        {errors && <ErrorMessages errors={errors} />}
         <RealEstateBenchmarkForm onSubmit={handleFormSubmit} />
       </Panel>
-      {decision && <RealEstateBenchmarkResult {...decision} />}
+      {decision && <RealEstateBenchmarkResult {...decision} ref={ref}/>}
     </Page>
   );
 };

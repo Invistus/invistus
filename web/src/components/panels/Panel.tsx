@@ -1,4 +1,4 @@
-import React from "react";
+import React, { forwardRef } from "react";
 
 export interface IPanel {
     title?: string,
@@ -8,9 +8,9 @@ export interface IPanel {
     image?: string
 }
 
-const Panel: React.FC<IPanel> = ({ title, subTitle, className, children, image }: IPanel) => {
+const Panel: React.ForwardRefRenderFunction<HTMLDivElement, IPanel> = ({ title, subTitle, className, children, image }: IPanel, ref) => {
     return (
-    <div className={`panel-container panel-shadow ${className || ""}`}>
+    <div ref={ref} className={`panel-container panel-shadow ${className || ""}`}>
         <div className="header">
             {image && <div className="image-header"><img src={image} alt={title} /></div>}
             <div>
@@ -25,4 +25,4 @@ const Panel: React.FC<IPanel> = ({ title, subTitle, className, children, image }
     );
 }
 
-export default Panel;
+export default forwardRef(Panel);

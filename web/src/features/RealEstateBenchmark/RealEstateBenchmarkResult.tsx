@@ -1,5 +1,5 @@
 import Panel from "components/panels/Panel";
-import React from "react";
+import React, { forwardRef } from "react";
 import { formatCurrency } from "utils/stringUtils";
 import RealEstateBenchmarkChart from "./RealEstateBenchmarkChart";
 import useTranslation from "language/useTranslation";
@@ -25,13 +25,13 @@ const getTotalWealth = (strategyValues: StrategyPeriod[]): number => {
     return strategyValues[strategyValues.length - 1].rentAmount;
   }
 
-export const RealEstateBenchmarkResult: React.FC<StrategyOutput> = (strategy: StrategyOutput) => {
+const RealEstateBenchmarkResult: React.ForwardRefRenderFunction<HTMLDivElement, StrategyOutput> = (strategy: StrategyOutput, ref) => {
 
     const { t } = useTranslation();
 
     return (
         <>
-            <Panel title={`${t('realEstateBenchmark.bestStrategy')} ${t(`realEstateBenchmark.${strategy.bestStrategy.toLocaleLowerCase()}`)}`}>
+            <Panel ref={ref} title={`${t('realEstateBenchmark.bestStrategy')} ${t(`realEstateBenchmark.${strategy.bestStrategy.toLocaleLowerCase()}`)}`}>
                 <div className="real-estate-benchmark-panel">
                     <div className="buy-strategy">
                       <p className="label buy strategy">{t(`realEstateBenchmark.buy`)}</p>
@@ -87,3 +87,5 @@ export const RealEstateBenchmarkResult: React.FC<StrategyOutput> = (strategy: St
           </>
     )
 }
+
+export default forwardRef(RealEstateBenchmarkResult);
