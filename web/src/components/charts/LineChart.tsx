@@ -194,7 +194,7 @@ const LineChart: React.FC<LineChartProps> = ({
           ))}
         </g>
         <g>
-          {lineData.map((line, i) => <path d={`M${line}`} stroke={colors[i] ?? DEFAULT_PATH_COLOR} fill="none" />)}
+          {lineData.map((line, i) => <path key={i} d={`M${line}`} stroke={colors[i] ?? DEFAULT_PATH_COLOR} fill="none" />)}
           {areaData.map((d, i) => (
             <path key={i} d={d} fill={colors[i] ?? DEFAULT_AREA_COLOR} opacity={opacity} />
           ))}

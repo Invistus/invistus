@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import { FieldErrors } from 'react-hook-form';
 
 interface ErrorMessagesProps {
@@ -9,11 +9,14 @@ const isNotEmpty = (obj: FieldErrors): boolean => {
   return Object.keys(obj).length > 0;
 };
 
-const ErrorMessages: React.FC<ErrorMessagesProps> = ({ errors }) => {
+const ErrorMessages: React.ForwardRefRenderFunction<HTMLDivElement, ErrorMessagesProps> = ({ errors }, ref) => {
   if (!isNotEmpty(errors)) return null;
   return (
-    <div>
-        <div className="errorValidation alert alert-warning">
+    <div ref={ref}>
+        <div className="error-validation alert alert-warning">
+          <div className="alert-warning-icon">
+            <i className="fa-solid fa-circle-exclamation fa-3x"></i>
+          </div>
           <ul>
             {Object.getOwnPropertyNames(errors).map((prop, index) => (
               <li key={index}>{errors[prop]?.message?.toString()}</li>
@@ -24,4 +27,4 @@ const ErrorMessages: React.FC<ErrorMessagesProps> = ({ errors }) => {
   );
 };
 
-export default ErrorMessages;
+export default forwardRef(ErrorMessages);

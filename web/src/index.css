@@ -365,6 +365,7 @@ div.help-icon-message {
 div.table {
   border-radius: var(--bs-border-radius);
   box-shadow: 0 2px 10px 0 rgba(0, 12, 102, 0.1);
+  word-wrap: break-word;
 }
 
 div.table .row:first-child  {
@@ -405,24 +406,36 @@ div.table .col.center {
 }
 
 /* Errors */
-div.errorValidation {
+div.error-validation {
+  display: flex;
+  margin: 1rem 0;
   padding: .5rem;
   border-radius: var(--bs-border-radius);
   box-shadow: 0 2px 20px 0px rgba(102, 77, 3, .2);
   border: none;
 }
 
-div.errorValidation li {
+div.error-validation div.alert-warning-icon {
+  opacity: .3;
+  align-self: center;
+}
+
+div.error-validation ul {
+  word-break: break-word;
+}
+
+div.error-validation li {
   margin: .5rem;
   list-style-type: none; /* Removes default bullet points */
   margin-left: 1.5em;    /* Adjusts space for the custom bullet */
   position: relative;    /* Makes it possible to position the ::before content relative to the li */
 }
 
-div.errorValidation li::before {
+div.error-validation li::before {
   content: '►';          /* The custom character */
   position: absolute;
   left: -1em;          /* Adjust this value as needed to position your custom bullet */
+  opacity: .25;
 }
 
 
@@ -533,6 +546,19 @@ div.tutorial-container u {
 
   form div.form-group.form-group-btn button {
     width: 100%;
+  }
+
+  div.table {
+    font-size: small;
+  }
+
+  /* Errors */
+  div.error-validation {
+    display: block;
+  }
+
+  div.error-validation div.alert-warning-icon {
+    text-align: center;
   }
 
 }
