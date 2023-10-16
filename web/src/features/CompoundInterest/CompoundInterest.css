@@ -1,18 +1,13 @@
 .result-compound-interest-panel {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: 1fr;
+  display: flex;
   grid-column-gap: 20px;
-  grid-row-gap: 20px;    
-  justify-items: center;
-  align-items: center;
+  justify-content: center;
 }
 
 .result-compound-interest-panel>div {
-  width: fit-content;
-  min-width: 300px;
+  width: max-content;
   padding: 1rem 1rem;
-  margin: 0 0 1rem;
+  margin: 1rem 0 1rem;
   border-radius: var(--bs-border-radius);
   box-shadow: var(--inv-inner-shadow);
   text-align: center;
