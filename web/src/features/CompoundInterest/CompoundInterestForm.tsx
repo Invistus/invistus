@@ -30,7 +30,7 @@ export const CompoundInterestForm: React.FC<CompoundInterestFormProps> = ({ onCa
             },
             rate: {
                 value: parsePercentage(formData.rate.value) ?? 0.0,
-                period: formData.contribution.period
+                period: formData.rate.period
             },
             period: {
                 value: parseInt(formData.period.value) ?? 0.0,
